@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-title>Inicio de Sesión</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="container">
+      <ion-col size-lg="4" offset-lg="4" size-xs="12">
+        <form [formGroup]="loginForm" (ngSubmit)="make_login()">
+          <ion-item>
+            <ion-input
+              formControlName="username"
+              autofocus="true"
+              placeholder="Usuario"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input
+              formControlName="password"
+              [type]="passwordInputType"
+              placeholder="Contraseña"
+            ></ion-input>
+            <ion-icon
+              (click)="passwordInputType == 'password' ? passwordInputType = 'text' : passwordInputType = 'password'"
+              slot="end"
+              name="eye"
+            ></ion-icon>
+          </ion-item>
+          <ion-button type="submit" mode="ios" expand="block"
+            >Empezar</ion-button
+          >
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
