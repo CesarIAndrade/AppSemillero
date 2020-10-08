@@ -1,11 +1,19 @@
-<ion-split-pane contentId="main-content">
-  <ion-menu contentId="main-content" type="overlay">
+<ion-split-pane contentId="content">
+  <ion-menu contentId="content" >
     <ion-content>
       <ion-list>
+        <ion-item style="margin-bottom: 5%">
+          <ion-avatar slot="start">
+            <img src="../../../assets/default_user_icon.png" />
+          </ion-avatar>
+          <ion-label>{{ names }}</ion-label>
+        </ion-item>
         <ion-menu-toggle
           auto-hide="false"
           *ngFor="let p of appPages; let i = index"
         >
+
+
           <ion-item
             (click)="selectedIndex = i"
             routerDirection="root"
@@ -24,5 +32,5 @@
       </ion-list>
     </ion-content>
   </ion-menu>
-  <ion-router-outlet id="main-content"></ion-router-outlet>
+  <ion-router-outlet id="content"></ion-router-outlet>
 </ion-split-pane>

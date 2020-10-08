@@ -10,8 +10,6 @@ import { Router } from "@angular/router";
   styleUrls: ["./sidemenu.page.scss"],
 })
 export class SidemenuPage implements OnInit {
-  public selectedIndex = 0;
-  public appPages = [];
 
   constructor(
     private platform: Platform,
@@ -31,6 +29,9 @@ export class SidemenuPage implements OnInit {
 
   ngOnInit() {
     var user = JSON.parse(localStorage.getItem("user"));
+    console.log(user);
+    this.email = user.correo;
+    this.names = `${user.nombres.split(' ')[0]} ${user.nombres.split(' ')[2]}`;
     if (user.idTipo == 1) {
       this.appPages = [
         {
@@ -73,4 +74,10 @@ export class SidemenuPage implements OnInit {
       (page) => page.url.split("/")[2] === this.router.url.split("/")[2]
     );
   }
+
+  selectedIndex = 0;
+  appPages = [];
+  email: string;
+  names: string;
+
 }
