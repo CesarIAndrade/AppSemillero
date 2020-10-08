@@ -1,0 +1,7 @@
+{
+  "name": "AppSemillero",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
