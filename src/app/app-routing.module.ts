@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 
 const routes: Routes = [
   {
@@ -18,28 +18,18 @@ const routes: Routes = [
       import("./tabs/tabs.module").then((m) => m.TabsPageModule),
   },
   {
-    path: "activities",
+    path: "sidemenu",
     loadChildren: () =>
-      import("./pages/activities/activities.module").then(
-        (m) => m.ActivitiesPageModule
+      import("./pages/sidemenu/sidemenu.module").then(
+        (m) => m.SidemenuPageModule
       ),
-  },
-  {
-    path: "forum",
-    loadChildren: () =>
-      import("./pages/forum/forum.module").then((m) => m.ForumPageModule),
-  },
-  {
-    path: "scores",
-    loadChildren: () =>
-      import("./pages/scores/scores.module").then((m) => m.ScoresPageModule),
   },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

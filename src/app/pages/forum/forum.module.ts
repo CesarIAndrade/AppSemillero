@@ -8,12 +8,15 @@ import { ForumPageRoutingModule } from './forum-routing.module';
 
 import { ForumPage } from './forum.page';
 
+import { ComponentsModule } from 'src/app/components/components.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ForumPageRoutingModule
+    ForumPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [ForumPage]
 })

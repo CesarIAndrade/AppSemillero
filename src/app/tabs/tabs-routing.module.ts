@@ -7,30 +7,6 @@ const routes: Routes = [
   {
     path: "",
     component: TabsPage,
-    children: [
-      {
-        path: "estadisticas",
-        loadChildren: () =>
-          import("../pages/dash/dash.module").then((m) => m.DashPageModule),
-      },
-      {
-        path: "juegos",
-        loadChildren: () =>
-          import("../pages/games/games.module").then((m) => m.GamesPageModule),
-      },
-      {
-        path: "perfil",
-        loadChildren: () =>
-          import("../pages/profile/profile.module").then(
-            (m) => m.ProfilePageModule
-          ),
-      },
-      {
-        path: "",
-        redirectTo: "/tabs/juegos",
-        pathMatch: "full",
-      },
-    ],
   },
   {
     path: "**",

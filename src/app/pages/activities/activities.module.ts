@@ -8,12 +8,15 @@ import { ActivitiesPageRoutingModule } from './activities-routing.module';
 
 import { ActivitiesPage } from './activities.page';
 
+import { ComponentsModule } from 'src/app/components/components.module';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ActivitiesPageRoutingModule
+    ActivitiesPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [ActivitiesPage]
 })

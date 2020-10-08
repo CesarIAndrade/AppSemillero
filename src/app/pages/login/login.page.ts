@@ -32,7 +32,7 @@ export class LoginPage implements OnInit {
       console.log(res);
       if(res['usuario']) {
         localStorage.setItem('user', JSON.stringify(res))
-        this.router.navigate(['/tabs/home'])
+        this.router.navigate(['/sidemenu'])
       } else {
         alert('no user!!')
       }
