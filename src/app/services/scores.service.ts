@@ -28,6 +28,26 @@ export class ScoresService {
     });
   }
 
+  getSGAScoresLastSemester(document) {
+    return new Promise((resolve, reject) => {
+      this.http
+        .get(apiUrl + `GetMaterias/${document}`, {
+          headers: new HttpHeaders().set(
+            "Content-Type",
+            "application/x-www-form-urlencoded"
+          ),
+        })
+        .subscribe(
+          (res) => {
+            resolve(res);
+          },
+          (err) => {
+            reject(err);
+          }
+        );
+    });
+  }
+
   getCAAIScores() {
     return new Promise((resolve, reject) => {
       this.http

@@ -15,25 +15,25 @@ export class GamesPage implements OnInit {
   games = [
     {
       name: 'Sopa de letras',
-      url: '/sopadeletras',
+      url: '/sidemenu/sopa-de-letras',
       imageRoute: '../../assets/sdp.jpg',
       description: ''
     },
     {
       name: 'El Ahorcado',
-      url: 'ahorcado',
+      url: '/sidemenu/ahorcado',
       imageRoute: '../../assets/ahorcado.jpg',
       description: ''
     },
     {
       name: 'Crucigrama',
-      url: 'crucigrama',
+      url: '/sidemenu/crucigrama',
       imageRoute: '../../assets/crucigrama.png',
       description: ''
     },
     {
       name: '¿Quién quiere ser millonario?',
-      url: 'qqsm',
+      url: '/sidemenu/qqsm',
       imageRoute: '../../assets/qqsm.jpg',
       description: ''
     },

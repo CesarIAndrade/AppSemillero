@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
 export class HeaderComponent implements OnInit {
   constructor(private router: Router) {}
 
-  ngOnInit() {
+  ngOnInit() {    
     if (this.router.url.split("/").length == 3) {
       this.headerLabel = this.CapitalizeWord(this.router.url.split("/")[2]);
     } else {
