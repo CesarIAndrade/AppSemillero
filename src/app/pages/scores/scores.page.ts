@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { ModalScoresPage } from '../modal-scores/modal-scores.page';
 
 @Component({
   selector: 'app-scores',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScoresPage implements OnInit {
 
-  constructor() { }
+  constructor(public modalController: ModalController) { }
 
   ngOnInit() {
   }
@@ -26,5 +28,15 @@ export class ScoresPage implements OnInit {
       imageRoute: '../../assets/ci.png'
     },
   ]
+
+  async presentModal(card) {
+    const modal = await this.modalController.create({
+      component: ModalScoresPage,
+      componentProps: {
+        'modalName': card.name
+      }
+    });
+    return await modal.present();
+  }
 
 }

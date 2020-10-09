@@ -23,7 +23,11 @@ const routes: Routes = [
       import("./pages/sidemenu/sidemenu.module").then(
         (m) => m.SidemenuPageModule
       ),
+  },  {
+    path: 'modal-scores',
+    loadChildren: () => import('./pages/modal-scores/modal-scores.module').then( m => m.ModalScoresPageModule)
   },
+
 ];
 
 @NgModule({

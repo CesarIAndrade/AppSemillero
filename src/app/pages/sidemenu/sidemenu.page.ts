@@ -3,6 +3,7 @@ import { Platform } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { Router } from "@angular/router";
+import { ScoresService } from "src/app/services/scores.service";
 
 @Component({
   selector: "app-sidemenu",
@@ -14,7 +15,8 @@ export class SidemenuPage implements OnInit {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private router: Router
+    private router: Router,
+    private scoresSvc: ScoresService
   ) {
     this.initializeApp();
   }
@@ -28,9 +30,12 @@ export class SidemenuPage implements OnInit {
 
   ngOnInit() {
     var user = JSON.parse(localStorage.getItem("user"));
-    if(!user) {
+    if (!user) {
       this.router.navigate(["/login"]);
     }
+    this.scoresSvc.getSGAScoresLastSemester(user.cedula).then((res) => {
+      console.log(res);
+    });
     this.email = user.correo;
     this.names = `${user.nombres.split(" ")[0]} ${user.nombres.split(" ")[2]}`;
     if (user.idTipo == 1) {
