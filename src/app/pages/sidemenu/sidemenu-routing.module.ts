@@ -40,6 +40,30 @@ const routes: Routes = [
         loadChildren: () =>
           import("../profile/profile.module").then((m) => m.ProfilePageModule),
       },
+      {
+        path: "sopa-de-letras",
+        loadChildren: () =>
+          import("../word-soup/word-soup.module").then(
+            (m) => m.WordSoupPageModule
+          ),
+      },
+      {
+        path: "ahorcado",
+        loadChildren: () =>
+          import("../hanged/hanged.module").then((m) => m.HangedPageModule),
+      },
+      {
+        path: "crucigrama",
+        loadChildren: () =>
+          import("../cross-word/cross-word.module").then(
+            (m) => m.CrossWordPageModule
+          ),
+      },
+      {
+        path: "qqsm",
+        loadChildren: () =>
+          import("../wwtbm/wwtbm.module").then((m) => m.WwtbmPageModule),
+      },
     ],
   },
 ];

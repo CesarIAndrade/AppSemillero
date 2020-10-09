@@ -3,7 +3,7 @@
 <ion-content>
   <ion-list inset="true">
     <ion-item-sliding *ngFor="let game of games">
-      <ion-item lines="none">
+      <ion-item lines="none" [routerLink]="game.url">
         <ion-avatar slot="start">
           <img [src]="game.imageRoute" />
         </ion-avatar>

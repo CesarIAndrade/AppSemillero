@@ -68,6 +68,11 @@ export class SidemenuPage implements OnInit {
           icon: "person",
           url: "/sidemenu/perfil",
         },
+        {
+          title: "Foros",
+          icon: "list",
+          url: "/sidemenu/foros",
+        },
       ];
     }
 
