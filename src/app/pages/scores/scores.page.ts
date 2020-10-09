@@ -12,4 +12,19 @@ export class ScoresPage implements OnInit {
   ngOnInit() {
   }
 
+  cards = [
+    {
+      name: 'Notas SGA',
+      imageRoute: '../../assets/espam.png'
+    },
+    {
+      name: 'Notas CAAI',
+      imageRoute: '../../assets/caai.png'
+    },
+    {
+      name: 'Notas CI',
+      imageRoute: '../../assets/ci.png'
+    },
+  ]
+
 }

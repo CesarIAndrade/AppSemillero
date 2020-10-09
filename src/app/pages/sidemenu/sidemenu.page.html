@@ -1,5 +1,5 @@
 <ion-split-pane contentId="content">
-  <ion-menu contentId="content" >
+  <ion-menu contentId="content">
     <ion-content>
       <ion-list>
         <ion-item style="margin-bottom: 5%">
@@ -12,8 +12,6 @@
           auto-hide="false"
           *ngFor="let p of appPages; let i = index"
         >
-
-
           <ion-item
             (click)="selectedIndex = i"
             routerDirection="root"
@@ -27,6 +25,20 @@
               [md]="p.icon + '-sharp'"
             ></ion-icon>
             <ion-label>{{ p.title }}</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="false">
+          <ion-item
+            routerDirection="root"
+            (click)="logout()"
+            lines="none"
+          >
+            <ion-icon
+              slot="start"
+              ios="log-out-outline"
+              md="log-out-sharp"
+            ></ion-icon>
+            <ion-label> Salir </ion-label>
           </ion-item>
         </ion-menu-toggle>
       </ion-list>

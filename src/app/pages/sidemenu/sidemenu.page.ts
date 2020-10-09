@@ -10,7 +10,6 @@ import { Router } from "@angular/router";
   styleUrls: ["./sidemenu.page.scss"],
 })
 export class SidemenuPage implements OnInit {
-
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -29,9 +28,11 @@ export class SidemenuPage implements OnInit {
 
   ngOnInit() {
     var user = JSON.parse(localStorage.getItem("user"));
-    console.log(user);
+    if(!user) {
+      this.router.navigate(["/login"]);
+    }
     this.email = user.correo;
-    this.names = `${user.nombres.split(' ')[0]} ${user.nombres.split(' ')[2]}`;
+    this.names = `${user.nombres.split(" ")[0]} ${user.nombres.split(" ")[2]}`;
     if (user.idTipo == 1) {
       this.appPages = [
         {
@@ -80,4 +81,8 @@ export class SidemenuPage implements OnInit {
   email: string;
   names: string;
 
+  logout() {
+    localStorage.clear();
+    this.router.navigate(["/login"]);
+  }
 }
