@@ -15,8 +15,7 @@ export class SidemenuPage implements OnInit {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private router: Router,
-    private scoresSvc: ScoresService
+    private router: Router
   ) {
     this.initializeApp();
   }
@@ -33,9 +32,6 @@ export class SidemenuPage implements OnInit {
     if (!user) {
       this.router.navigate(["/login"]);
     }
-    this.scoresSvc.getSGAScoresLastSemester(user.cedula).then((res) => {
-      console.log(res);
-    });
     this.email = user.correo;
     this.names = `${user.nombres.split(" ")[0]} ${user.nombres.split(" ")[2]}`;
     if (user.idTipo == 1) {

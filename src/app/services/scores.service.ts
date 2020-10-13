@@ -28,7 +28,7 @@ export class ScoresService {
     });
   }
 
-  getSGAScoresLastSemester(document) {
+  getCurrentSubjects(document) {
     return new Promise((resolve, reject) => {
       this.http
         .get(apiUrl + `GetMaterias/${document}`, {
@@ -48,10 +48,10 @@ export class ScoresService {
     });
   }
 
-  getCAAIScores() {
+  getSubjectSchedule(subject) {
     return new Promise((resolve, reject) => {
       this.http
-        .post(apiUrl + "", {
+        .get(apiUrl + `Horarios/${subject}`, {
           headers: new HttpHeaders().set(
             "Content-Type",
             "application/x-www-form-urlencoded"
@@ -68,10 +68,30 @@ export class ScoresService {
     });
   }
 
-  getCIScores() {
+  getCAAIScores(studentId) {
     return new Promise((resolve, reject) => {
       this.http
-        .post(apiUrl + "", {
+        .get(apiUrl + `NotasCai/${studentId}`, {
+          headers: new HttpHeaders().set(
+            "Content-Type",
+            "application/x-www-form-urlencoded"
+          ),
+        })
+        .subscribe(
+          (res) => {
+            resolve(res);
+          },
+          (err) => {
+            reject(err);
+          }
+        );
+    });
+  }
+
+  getCIScores(document) {
+    return new Promise((resolve, reject) => {
+      this.http
+        .get(apiUrl + `NotasCi/${document}`, {
           headers: new HttpHeaders().set(
             "Content-Type",
             "application/x-www-form-urlencoded"

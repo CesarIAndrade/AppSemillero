@@ -16,7 +16,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: "foro",
+        path: "foros",
         loadChildren: () =>
           import("../forum/forum.module").then((m) => m.ForumPageModule),
       },

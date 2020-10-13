@@ -1,26 +1,66 @@
-ion-avatar { 
-    width: auto !important;
-    height: auto !important;
-    max-width: 100px !important; //any size
-    max-height: 100px !important; //any size 
+.profile-widget > img {
+    position: fixed;
+    width: 100vw;
+    height: 45%;
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: blur(2px);
 }
 
-.center {
-    position: relative;
-    margin-top: -30%;
-    margin-left: auto;
-    margin-right: auto;
-    //display: block;
+
+.profile-widget {
+  // background-image: linear-gradient(red, yellow);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
 }
 
-.center-banner {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    //display: block;
+@media screen and (max-width: 990px) {
+  .profile-widget {
+    height: 45%;
+  }
 }
 
-.ion-text-center{
-    // position: relative;
-    margin-top: 20%;
+.profile-avatar {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  top: 2rem;
+
+}
+
+.profile-info {
+  position: relative;
+  top: 2rem;
+  color: #000;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  font-weight: bold;
+}
+
+ion-label {
+  color: #fff;
+}
+
+ion-card {
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.profile-avatar:hover {
+  cursor: pointer;
+  opacity: 1;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+ion-avatar {
+  background: #fff;
 }

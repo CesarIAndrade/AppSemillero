@@ -24,7 +24,7 @@ export class LoginPage implements OnInit {
   loginForm: FormGroup;
   passwordInputType = 'password';
 
-  make_login() {
+  onSubmit() {
     this.authSvc.login(
       this.loginForm.get("username").value,
       this.loginForm.get("password").value

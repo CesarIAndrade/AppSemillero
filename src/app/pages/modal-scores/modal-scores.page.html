@@ -9,6 +9,63 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  
+<ion-content *ngIf="id == 1; else noSGALevels" fullscreen class="ion-padding" scroll-y="false">
+  <ion-slides>
+    <ion-slide
+      *ngFor="let subject of subjects"
+      (click)="getSubjectSchedule(subject.DISTRO)"
+    >
+      <div class="slide">
+        <ion-avatar style="margin: 0 auto">
+          <img src="../../assets/subject.png" />
+        </ion-avatar>
+        <h2>{{ subject.MATERIA }}</h2>
+        <ion-list>
+          <ion-item lines="none">
+            <ion-label>
+              <h2>Total</h2>
+              <p>{{subject.NOTAGLOBAL}}</p>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label>
+              <h2>Exámen</h2>
+              <p>{{subject.EXAMEN}}</p>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label>
+              <h2>Actividades Autónomas</h2>
+              <p>{{subject.AA}}</p>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label>
+              <h2>Actividades Prácticas</h2>
+              <p>{{subject.PAEA}}</p>
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label>
+              <h2>Componentes Docencia</h2>
+              <p>{{subject.AADAC}}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-slide>
+  </ion-slides>
 </ion-content>
+
+<ng-template #noSGALevels>
+  <ion-content >
+    <ion-list>
+      <ion-item lines="none" *ngFor="let level of levels">
+        <ion-label>
+          <h2>{{level.area}}</h2>
+          <p>{{level.resultado}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ng-template>
