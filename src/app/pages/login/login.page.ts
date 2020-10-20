@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/auth.service";
-import * as signalR from "@aspnet/signalr";
 
 @Component({
   selector: "app-login",
@@ -21,7 +20,6 @@ export class LoginPage implements OnInit {
 
   loginForm: FormGroup;
   passwordInputType = "password";
-  hubConnection: signalR.HubConnection;
 
   onSubmit() {
     this.authSvc
@@ -29,12 +27,12 @@ export class LoginPage implements OnInit {
         this.loginForm.get("username").value,
         this.loginForm.get("password").value
       )
-      .then((res) => {
+      .then( async res => {
         console.log(res);
         if (res["usuario"]) {
           localStorage.setItem("user", JSON.stringify(res));
           // this.router.navigate(["/sidemenu"]);
-          this.crearConexion();
+          // await this.authSvc.createConnection();
         } else {
           alert("no user!!");
         }
@@ -42,24 +40,5 @@ export class LoginPage implements OnInit {
       .catch((err) => {
         console.log(err);
       });
-  }
-
-  crearConexion() {
-    this.hubConnection = new signalR.HubConnectionBuilder()
-      .configureLogging(signalR.LogLevel.Debug)
-      .withUrl("http://26.175.169:92/ChatHub?user=Cesar", {
-        skipNegotiation: true,
-        transport: signalR.HttpTransportType.WebSockets,
-      })
-      .build();
-    this.hubConnection
-      .start()
-      .then(() => {})
-      .catch((err) => {
-        console.log("Error while establishing connection :(");
-      });
-    this.hubConnection.on("nuevoInicio", (mensaje: string) => {
-      console.log("mensaje", mensaje);
-    });
   }
 }

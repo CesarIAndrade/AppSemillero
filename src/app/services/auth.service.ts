@@ -1,12 +1,15 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams, HttpHeaders } from "@angular/common/http";
-import { apiUrl, realTimeApiUrl } from "src/environments/environment";
+import { realTimeApiUrl } from "src/environments/environment";
+// import * as signalR from "@aspnet/signalr";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
   constructor(private http: HttpClient) {}
+
+  // hubConnection: signalR.HubConnection;
 
   login(username: string, password: string) {
     const body = new HttpParams()
@@ -31,4 +34,23 @@ export class AuthService {
         );
     });
   }
+
+  // createConnection() {
+  //   this.hubConnection = new signalR.HubConnectionBuilder()
+  //     .configureLogging(signalR.LogLevel.Debug)
+  //     .withUrl(realTimeApiUrl + "ChatHub?user=Cesar", {
+  //       skipNegotiation: true,
+  //       transport: signalR.HttpTransportType.WebSockets,
+  //     })
+  //     .build();
+  //   this.hubConnection
+  //     .start()
+  //     .then(() => {})
+  //     .catch((err) => {
+  //       console.log("Error while establishing connection :(");
+  //     });
+  //   this.hubConnection.on("nuevoInicio", (mensaje: string) => {
+  //     console.log("mensaje", mensaje);
+  //   });
+  // }
 }

@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'modal-scores',
     loadChildren: () => import('./pages/modal-scores/modal-scores.module').then( m => m.ModalScoresPageModule)
   },
+  {
+    path: 'forum-chat',
+    loadChildren: () => import('./pages/forum-chat/forum-chat.module').then( m => m.ForumChatPageModule)
+  },
 
 ];
 

@@ -28,26 +28,9 @@ export class ModalScoresPage implements OnInit {
 
   @Input() modalName: string;
   @Input() id: string;
-  subjects = [
-    {
-      AA: 0,
-      AADAC: 7,
-      Asistencia: null,
-      DISTRO: 17751,
-      Disponibles: 0,
-      ESTADO: "",
-      EXAMEN: 0,
-      MATERIA: "DESARROLLO DE TESIS",
-      NOTAGLOBAL: 0,
-      PAEA: 0,
-      Realizados: 0,
-      SEMESTRE: "10 A",
-      SUBTOTAL: 1.75,
-      SUPLETORIO: 0,
-    }
-  ];
-  subjectSchedule = [];
-  levels = [];
+  subjects: any[] = [];
+  subjectSchedule: any[] = [];
+  levels: any[] = [];
 
   dismiss() {
     this.modalController.dismiss({
