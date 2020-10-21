@@ -7,12 +7,30 @@ import { ActionSheetController } from "@ionic/angular";
   styleUrls: ["./profile.page.scss"],
 })
 export class ProfilePage implements OnInit {
-  constructor(public actionSheetController: ActionSheetController) {}
+  constructor(private actionSheetController: ActionSheetController) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    var user = JSON.parse(localStorage.getItem('user'));
+    console.log(user);
+    this.user = {
+      name: user.nombres,
+      username: user.apodo,
+      document: user.cedula,
+      phone: user.celular,
+      mail: user.correo
+    }
+
+  }
 
   imageSelected: string | ArrayBuffer;
   image: File;
+  user = {
+    name: '',
+    username: '',
+    document: '',
+    phone: '',
+    mail: ''
+  }
 
   @ViewChild('imageInput') private imageInput: ElementRef;
 

@@ -23,15 +23,21 @@ const routes: Routes = [
       import("./pages/sidemenu/sidemenu.module").then(
         (m) => m.SidemenuPageModule
       ),
-  },  {
-    path: 'modal-scores',
-    loadChildren: () => import('./pages/modal-scores/modal-scores.module').then( m => m.ModalScoresPageModule)
   },
   {
-    path: 'forum-chat',
-    loadChildren: () => import('./pages/forum-chat/forum-chat.module').then( m => m.ForumChatPageModule)
+    path: "modal-scores",
+    loadChildren: () =>
+      import("./pages/modal-scores/modal-scores.module").then(
+        (m) => m.ModalScoresPageModule
+      ),
   },
-
+  {
+    path: "forum-chat",
+    loadChildren: () =>
+      import("./pages/forum-chat/forum-chat.module").then(
+        (m) => m.ForumChatPageModule
+      ),
+  }
 ];
 
 @NgModule({

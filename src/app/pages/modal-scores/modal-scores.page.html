@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title> {{ topic }} </ion-title>
+    <ion-title> {{ modalName }} </ion-title>
     <ion-buttons slot="secondary">
       <ion-button (click)="dismiss()">
         <ion-icon slot="icon-only" name="close-circle-outline"></ion-icon>
@@ -9,7 +9,12 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="id == 1; else noSGALevels" fullscreen class="ion-padding" scroll-y="false">
+<ion-content
+  *ngIf="id == 1; else noSGALevels"
+  fullscreen
+  class="ion-padding"
+  scroll-y="false"
+>
   <ion-slides>
     <ion-slide
       *ngFor="let subject of subjects"
@@ -58,14 +63,10 @@
 </ion-content>
 
 <ng-template #noSGALevels>
-  <ion-content >
-    <ion-list>
-      <ion-item lines="none" *ngFor="let level of levels">
-        <ion-label>
-          <h2>{{level.area}}</h2>
-          <p>{{level.resultado}}</p>
-        </ion-label>
-      </ion-item>
-    </ion-list>
+  <ion-content>
+    <ion-chip *ngFor="let level of levels">
+      <ion-icon name="pin"></ion-icon>
+      <ion-label>{{level.area}} - {{level.resultado}}</ion-label>
+    </ion-chip>
   </ion-content>
 </ng-template>

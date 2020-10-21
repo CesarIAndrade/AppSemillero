@@ -27,12 +27,54 @@ export class LoginPage implements OnInit {
         this.loginForm.get("username").value,
         this.loginForm.get("password").value
       )
-      .then( async res => {
-        console.log(res);
+      .then(res => {
         if (res["usuario"]) {
+          this.loginForm.reset();
           localStorage.setItem("user", JSON.stringify(res));
-          // this.router.navigate(["/sidemenu"]);
-          // await this.authSvc.createConnection();
+          if (res['idTipo'] == 1) {
+            var appPages = [
+              {
+                title: "Actividades",
+                icon: "game-controller",
+                url: "/sidemenu/actividades",
+              },
+              {
+                title: "Foros",
+                icon: "list",
+                url: "/sidemenu/foros",
+              },
+            ];
+          } else {
+            var appPages = [
+              {
+                title: "Inicio",
+                icon: "home",
+                url: "/sidemenu/estadisticas",
+              },
+              {
+                title: "Notas",
+                icon: "podium",
+                url: "/sidemenu/notas",
+              },
+              {
+                title: "Juegos",
+                icon: "game-controller",
+                url: "/sidemenu/juegos",
+              },
+              {
+                title: "Perfil",
+                icon: "person",
+                url: "/sidemenu/perfil",
+              },
+              {
+                title: "Foros",
+                icon: "list",
+                url: "/sidemenu/foros",
+              },
+            ];
+          }
+          localStorage.setItem('routes', JSON.stringify(appPages))
+          this.router.navigateByUrl(appPages[0].url);
         } else {
           alert("no user!!");
         }

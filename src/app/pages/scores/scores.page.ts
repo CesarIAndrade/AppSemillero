@@ -8,7 +8,7 @@ import { ModalScoresPage } from "../modal-scores/modal-scores.page";
   styleUrls: ["./scores.page.scss"],
 })
 export class ScoresPage implements OnInit {
-  constructor(public modalController: ModalController) {}
+  constructor(private modalController: ModalController) {}
 
   ngOnInit() {}
 

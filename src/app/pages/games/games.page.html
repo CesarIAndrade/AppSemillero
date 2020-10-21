@@ -1,17 +1,13 @@
 <app-header></app-header>
 
 <ion-content>
-  <ion-list inset="true">
-    <ion-item-sliding *ngFor="let game of games">
-      <ion-item lines="none" [routerLink]="game.url">
-        <ion-avatar slot="start">
-          <img [src]="game.imageRoute" />
-        </ion-avatar>
-        <ion-label>
-          <h2>{{ game.name }}</h2>
-          <p></p>
-        </ion-label>
-      </ion-item>
-    </ion-item-sliding>
-  </ion-list>
+  <ion-card *ngFor="let game of games" [routerLink]="game.url">
+    <ion-card-header>
+      <img  [src]="game.imageRoute" />
+    </ion-card-header>
+    <ion-card-content>
+      <ion-card-title> {{ game.name }} </ion-card-title>
+      <p>{{ game.description }}</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

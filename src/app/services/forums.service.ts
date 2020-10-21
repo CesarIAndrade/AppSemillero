@@ -8,7 +8,7 @@ import { apiUrl } from "src/environments/environment";
 export class ForumsService {
   constructor(private http: HttpClient) {}
 
-  getForums(id) {
+  getSubjectForums(id) {    
     return new Promise((resolve, reject) => {
       this.http.get(apiUrl + "Foros/" + id).subscribe(
         (res) => {
@@ -21,12 +21,13 @@ export class ForumsService {
     });
   }
 
-  createForum(topic, subTopic, limitDate, creatorId) {
+  createForum(topic, subTopic, limitDate, creatorId, subject) {
     const body = new HttpParams()
       .set("tema", topic)
       .set("subtema", subTopic)
       .set("fechaCierre", limitDate)
-      .set("idCreador", creatorId);
+      .set("idCreador", creatorId)
+      .set("id_distributivo", subject);
     return new Promise((resolve, reject) => {
       this.http
         .post(apiUrl + "Foros", body.toString(), {

@@ -14,28 +14,16 @@ export class GamesPage implements OnInit {
 
   games = [
     {
-      name: 'Sopa de letras',
-      url: '/sidemenu/sopa-de-letras',
-      imageRoute: '../../assets/sdp.jpg',
-      description: ''
-    },
-    {
       name: 'El Ahorcado',
       url: '/sidemenu/ahorcado',
       imageRoute: '../../assets/ahorcado.jpg',
-      description: ''
-    },
-    {
-      name: 'Crucigrama',
-      url: '/sidemenu/crucigrama',
-      imageRoute: '../../assets/crucigrama.png',
-      description: ''
+      description: 'Descubre la palabra antes de morir'
     },
     {
       name: '¿Quién quiere ser millonario?',
       url: '/sidemenu/qqsm',
       imageRoute: '../../assets/qqsm.jpg',
-      description: ''
+      description: 'Responde la mayor cantidad de preguntas'
     },
   ];
 
