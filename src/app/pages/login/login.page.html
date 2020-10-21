@@ -1,12 +1,9 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title style="text-align: center">Inicio de Sesión</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-grid>
+<ion-content class="background">
+  <ion-grid>    
     <ion-row class="container">
+      <ion-col size="4" offset="4">
+        <ion-img src="assets/login/logo.png"></ion-img>
+      </ion-col>
       <ion-col size-lg="4" offset-lg="4" size-xs="12">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <ion-item>
