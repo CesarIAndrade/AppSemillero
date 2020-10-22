@@ -10,19 +10,6 @@ export class ForumsService {
 
   refresh$ = new EventEmitter();
 
-  getSubjectForums(subject) {  
-    return new Promise((resolve, reject) => {
-      this.http.get(apiUrl + "GetForosDistributivo/?iddistributivo=" + subject).subscribe(
-        (res) => {
-          resolve(res);
-        },
-        (err) => {
-          reject(err);
-        }
-      );
-    });
-  }
-
   createForum(topic, subTopic, limitDate, creatorId, subject) {
     const body = new HttpParams()
       .set("tema", topic)

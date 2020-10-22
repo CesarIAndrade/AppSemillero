@@ -3,14 +3,8 @@
     <img src="../../../assets/profile-banner.jpg" alt="">
     <ion-avatar  class="profile-avatar">
       <img
-        [src]="imageSelected || '../../assets/default_user_icon.png'"
+        [src]="user.avatar"
         (click)="editAvatar()"
-      />
-      <input
-        style="display: none"
-        type="file"
-        (change)="uploadPhoto($event)"
-        #imageInput
       />
     </ion-avatar>
     <div class="profile-info">

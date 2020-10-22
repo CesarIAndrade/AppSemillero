@@ -11,7 +11,7 @@ export class ActivitiesService {
 
   getGameTypes() {
     return new Promise((resolve, reject) => {
-      this.http.get(apiUrl + "TipoJuego").subscribe(
+      this.http.get(apiUrl + 'TipoJuego').subscribe(
         (res) => {
           resolve(res);
         },

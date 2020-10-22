@@ -4,9 +4,9 @@
       <ion-list>
         <ion-item style="margin-bottom: 5%">
           <ion-avatar slot="start">
-            <img src="../../../assets/default_user_icon.png" />
+            <img [src]="user.avatar" />
           </ion-avatar>
-          <ion-label>{{ names }}</ion-label>
+          <ion-label>{{ user.names }}</ion-label>
         </ion-item>
         <ion-menu-toggle
           auto-hide="false"

@@ -43,6 +43,11 @@ export class LoginPage implements OnInit {
                 icon: "list",
                 url: "/sidemenu/foros",
               },
+              {
+                title: "Perfil",
+                icon: "person",
+                url: "/sidemenu/perfil",
+              },
             ];
           } else {
             var appPages = [

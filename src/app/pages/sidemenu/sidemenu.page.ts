@@ -3,7 +3,7 @@ import { Platform } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { Router } from "@angular/router";
-import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: "app-sidemenu",
@@ -16,7 +16,7 @@ export class SidemenuPage implements OnInit {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
-    private authSvc: AuthService
+    private userSvc: UserService
   ) {
     this.initializeApp();
   }
@@ -29,12 +29,10 @@ export class SidemenuPage implements OnInit {
   }
 
   ngOnInit() {    
-    var user = JSON.parse(localStorage.getItem("user"));
-    if (!user) {
-      this.router.navigate(["/login"]);
-    }
-    this.email = user.correo;
-    this.names = `${user.nombres.split(" ")[0]} ${user.nombres.split(" ")[2]}`;
+    this.setUserData();
+    this.userSvc.refresh$.subscribe(() => {
+      this.setUserData();
+    })
     this.appPages = JSON.parse(localStorage.getItem('routes'));
     this.selectedIndex = this.appPages.findIndex(
       (page) => page.url.split("/")[2] === this.router.url.split("/")[2]
@@ -43,11 +41,20 @@ export class SidemenuPage implements OnInit {
 
   selectedIndex = 0;
   appPages = [];
-  email: string;
-  names: string;
+  user: any;
 
   logout() {
     localStorage.clear();
     this.router.navigate(["/login"]);
+  }
+
+  setUserData() {
+    var user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      this.router.navigate(["/login"]);
+    }
+    user.avatar = `../../../assets/avatars/${user.avatar}.png`;    
+    user.names = `${user.nombres.split(" ")[0]} ${user.nombres.split(" ")[2]}`;
+    this.user = user;
   }
 }
