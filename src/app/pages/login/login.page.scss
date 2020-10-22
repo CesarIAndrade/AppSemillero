@@ -4,6 +4,20 @@ ion-content.background{
 ion-item{
   border-radius: 15px;
 }
+ion-grid.responsive{
+  max-width: 400px; 
+  width:100%; 
+  margin: auto; 
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
 ion-button{
   --background: #41989ba2;
   color: rgb(2, 238, 255);
