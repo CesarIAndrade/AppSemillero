@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { ActionSheetController } from "@ionic/angular";
+import { ActionSheetController, PopoverController } from "@ionic/angular";
+import { UserService } from 'src/app/services/user.service';
+import { AvatarListComponent } from '../../components/avatar-list/avatar-list.component';
 
 @Component({
   selector: "app-profile",
@@ -7,62 +9,48 @@ import { ActionSheetController } from "@ionic/angular";
   styleUrls: ["./profile.page.scss"],
 })
 export class ProfilePage implements OnInit {
-  constructor(private actionSheetController: ActionSheetController) {}
+  constructor(
+    private popoverController: PopoverController,
+    private userSvc: UserService
+  ) {}
 
   ngOnInit() {
-    var user = JSON.parse(localStorage.getItem('user'));
-    console.log(user);
-    this.user = {
-      name: user.nombres,
-      username: user.apodo,
-      document: user.cedula,
-      phone: user.celular,
-      mail: user.correo
-    }
-
+    this.setUserData();
+    this.userSvc.refresh$.subscribe(() => {
+      this.setUserData();
+    })
   }
 
   imageSelected: string | ArrayBuffer;
   image: File;
   user = {
-    name: '',
-    username: '',
-    document: '',
-    phone: '',
-    mail: ''
-  }
+    name: "",
+    username: "",
+    document: "",
+    phone: "",
+    mail: "",
+    avatar: ""
+  };
 
-  @ViewChild('imageInput') private imageInput: ElementRef;
+  @ViewChild("imageInput") private imageInput: ElementRef;
 
   async editAvatar() {
-    const actionSheet = await this.actionSheetController.create({
-      buttons: [
-        {
-          text: "Seleccionar imagen",
-          icon: "image-outline",
-          handler: () => {
-            this.imageInput.nativeElement.click();
-          },
-        },
-        {
-          text: "Cancel",
-          icon: "close",
-          role: "cancel",
-          handler: () => {
-            console.log("Cancel clicked");
-          },
-        },
-      ],
+    const popover = await this.popoverController.create({
+      component: AvatarListComponent,
+      translucent: true,
     });
-    await actionSheet.present();
+    return await popover.present();
   }
 
-  uploadPhoto(event) {
-    if (event.target.files && event.target.files[0]) {
-      this.image = event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = (e) => (this.imageSelected = reader.result);
-      reader.readAsDataURL(this.image);
-    }
+  setUserData() {
+    var user = JSON.parse(localStorage.getItem("user"));
+    this.user = {
+      name: user.nombres,
+      username: user.apodo,
+      document: user.cedula,
+      phone: user.celular,
+      mail: user.correo,
+      avatar: `../../../assets/avatars/${user.avatar}.png`
+    };
   }
 }

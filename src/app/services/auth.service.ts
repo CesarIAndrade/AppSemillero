@@ -18,7 +18,7 @@ export class AuthService {
       .set("token", "token");
     return new Promise((resolve, reject) => {
       this.http
-        .post(apiUrl + "Login", body.toString(), {
+        .post(apiUrl + 'Login', body.toString(), {
           headers: new HttpHeaders().set(
             "Content-Type",
             "application/x-www-form-urlencoded"

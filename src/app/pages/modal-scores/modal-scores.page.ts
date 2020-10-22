@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { ScoresService } from 'src/app/services/scores.service';
+import { StudentService } from 'src/app/services/student.service';
+import { SubjectService } from 'src/app/services/subject.service';
 
 @Component({
   selector: 'app-modal-scores',
@@ -12,13 +14,15 @@ export class ModalScoresPage implements OnInit {
   constructor(
     private modalController: ModalController,
     private scoresSvc: ScoresService,
-    private actionSheetController: ActionSheetController
+    private actionSheetController: ActionSheetController,
+    private studentSvc: StudentService,
+    private subjectSvc: SubjectService
   ) { }
 
   ngOnInit() {
     var user = JSON.parse(localStorage.getItem('user'));
     if(this.id == '1') {
-      this.getCurrentSubjects(user.cedula);
+      this.getStudentSubjects(user.cedula);
     } else if(this.id == '2') {
       this.getCAAIScores(user.idAlumno);
     } else {
@@ -38,15 +42,15 @@ export class ModalScoresPage implements OnInit {
     });
   }
 
-  getCurrentSubjects(document) {
-    this.scoresSvc.getCurrentSubjects(document)
+  getStudentSubjects(document) {
+    this.studentSvc.getStudentSubjects(document)
     .then((res: any) => {
       this.subjects = res;
     })
   }
 
   getSubjectSchedule(subject) {
-    this.scoresSvc.getSubjectSchedule(subject)
+    this.subjectSvc.getSubjectSchedule(subject)
     .then((res: any) => {      
       this.showBottonSheet(res);
     })

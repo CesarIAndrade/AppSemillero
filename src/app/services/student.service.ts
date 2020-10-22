@@ -1,16 +1,16 @@
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { apiUrl } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
-export class TeacherService {
+export class StudentService {
   constructor(private http: HttpClient) {}
 
-  getTeacherSchedule(document) {
+  getStudentSubjects(document) {
     return new Promise((resolve, reject) => {
-      this.http.get(apiUrl + "CargaHoraria/" + document).subscribe(
+      this.http.get(apiUrl + "GetMaterias/" + document).subscribe(
         (res) => {
           resolve(res);
         },

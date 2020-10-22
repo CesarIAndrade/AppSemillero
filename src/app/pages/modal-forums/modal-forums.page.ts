@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { AlertController, ModalController } from "@ionic/angular";
 import { ForumsService } from "src/app/services/forums.service";
+import { SubjectService } from 'src/app/services/subject.service';
 import { ForumChatPage } from "../forum-chat/forum-chat.page";
 
 @Component({
@@ -12,7 +13,8 @@ export class ModalForumsPage implements OnInit {
   constructor(
     private modalController: ModalController,
     private forumsSvc: ForumsService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private subjectSvc: SubjectService
   ) {}
 
   ngOnInit() {
@@ -36,7 +38,7 @@ export class ModalForumsPage implements OnInit {
   }
 
   getSubjectForums(subject) {
-    this.forumsSvc
+    this.subjectSvc
       .getSubjectForums(subject)
       .then((res: any) => {
         console.log(res);
