@@ -37,7 +37,15 @@ const routes: Routes = [
       import("./pages/forum-chat/forum-chat.module").then(
         (m) => m.ForumChatPageModule
       ),
+  },  {
+    path: 'modal-activity',
+    loadChildren: () => import('./pages/modal-activity/modal-activity.module').then( m => m.ModalActivityPageModule)
+  },
+  {
+    path: 'modal-forums',
+    loadChildren: () => import('./pages/modal-forums/modal-forums.module').then( m => m.ModalForumsPageModule)
   }
+
 ];
 
 @NgModule({

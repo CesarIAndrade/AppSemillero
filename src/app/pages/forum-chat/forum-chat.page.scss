@@ -1,3 +1,13 @@
 .send-comment {
     color: var(--ion-color-primary)
 }
+
+.comment {
+    margin: 10px 0;
+}
+
+ion-list {
+    margin: 0;
+    padding: 0;
+	background-color: rgba(0, 0, 0, 0);
+}

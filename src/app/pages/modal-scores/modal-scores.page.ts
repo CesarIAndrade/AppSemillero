@@ -10,9 +10,9 @@ import { ScoresService } from 'src/app/services/scores.service';
 export class ModalScoresPage implements OnInit {
 
   constructor(
-    public modalController: ModalController,
+    private modalController: ModalController,
     private scoresSvc: ScoresService,
-    public actionSheetController: ActionSheetController
+    private actionSheetController: ActionSheetController
   ) { }
 
   ngOnInit() {

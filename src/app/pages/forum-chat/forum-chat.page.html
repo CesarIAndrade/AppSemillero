@@ -11,18 +11,27 @@
 
 <ion-content>
   <ion-list inset="true" *ngIf="comments.length > 0">
-    <ion-item *ngFor="let comment of comments">
-      <ion-label>
-        <h3>{{ comment.nombres }}</h3>
-        <p>{{ comment.descripcion }}</p>
-      </ion-label>
-    </ion-item>
+    <span *ngFor="let comment of comments">
+      <ion-item class="comment" lines="none">
+        <ion-avatar slot="start">
+          <img src="../../../assets/default_user_icon.png" />
+        </ion-avatar>
+        <ion-label>
+          <h3>{{ comment.nombres }}</h3>
+          <p>{{ comment.descripcion }}</p>
+        </ion-label>
+      </ion-item>
+    </span>
   </ion-list>
 </ion-content>
 
 <ion-footer>
   <ion-item>
-    <ion-input #comment autofocus="true" placeholder="Di algo!"></ion-input>
+    <ion-input
+      autofocus="true"
+      placeholder="Di algo!"
+      [(ngModel)]="comment"
+    ></ion-input>
     <ion-icon
       class="send-comment"
       (click)="sendComment(comment.value)"

@@ -36,7 +36,6 @@ export class SidemenuPage implements OnInit {
     this.email = user.correo;
     this.names = `${user.nombres.split(" ")[0]} ${user.nombres.split(" ")[2]}`;
     this.appPages = JSON.parse(localStorage.getItem('routes'));
-    console.log(this.appPages);
     this.selectedIndex = this.appPages.findIndex(
       (page) => page.url.split("/")[2] === this.router.url.split("/")[2]
     );

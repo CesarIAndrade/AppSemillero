@@ -1,78 +1,69 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
-import { ActivitiesService } from 'src/app/services/activities.service';
+import { Component, OnInit } from "@angular/core";
+import { ModalController } from "@ionic/angular";
+import { ActivitiesService } from "src/app/services/activities.service";
+import { TeacherService } from "src/app/services/teacher.service";
+import { ModalActivityPage } from '../modal-activity/modal-activity.page';
 
 @Component({
-  selector: 'app-activities',
-  templateUrl: './activities.page.html',
-  styleUrls: ['./activities.page.scss'],
+  selector: "app-activities",
+  templateUrl: "./activities.page.html",
+  styleUrls: ["./activities.page.scss"],
 })
 export class ActivitiesPage implements OnInit {
-
   constructor(
     private activitiesSvc: ActivitiesService,
-    private alertController: AlertController
-  ) { }
+    private teacherSvc: TeacherService,
+    private modalController: ModalController
+  ) {}
 
   ngOnInit() {
+    var user = JSON.parse(localStorage.getItem("user"));
     this.getGameTypes();
+    this.getTeacherSchedule(user.cedula);
   }
 
   gameTypes: any[] = [];
+  subjects: any[] = [];
+  gettingData = true;
+  selectedActivity = "1";
 
   getGameTypes() {
-    this.activitiesSvc.getGameTypes()
-    .then((res: any) => {
-      console.log(res);
-      this.gameTypes = res;
-    })
-    .catch(err => console.log(err))
+    this.activitiesSvc
+      .getGameTypes()
+      .then((res: any) => {
+        this.gameTypes = res;
+      })
+      .catch((err) => console.log(err));
   }
 
-  async createChallenge() {
-    var date = new Date().toJSON().split("T")[0];
-    const alert = await this.alertController.create({
-      cssClass: "my-custom-class",
-      header: "Prompt!",
-      inputs: [
-        {
-          name: "topic",
-          type: "text",
-          placeholder: "Tema",
-        },
-        {
-          name: "subTopic",
-          type: "text",
-          placeholder: "SubTema",
-        },
-        {
-          name: "limitDate",
-          type: "date",
-          min: date,
-          value: date,
-        },
-      ],
-      buttons: [
-        {
-          text: "Cancelar",
-          role: "cancel",
-        },
-        {
-          text: "Guardar",
-          handler: (alertData) => {
-            // this.forumsSvc
-            //   .createForum(
-            //     alertData.topic,
-            //     alertData.subTopic,
-            //     alertData.limitDate,
-            //     this.user.idRegistro
-            //   )
-            //   .then((res) => this.getForums(this.user.idRegistro))
-            //   .catch((err) => console.log(err));
-          },
-        },
-      ],
+  getTeacherSchedule(document) {
+    this.teacherSvc.getTeacherSchedule(document)
+    .then((res: any) =>{
+      console.log(res);
+      var subjects = []
+      res.map((item) => {
+        subjects.push({
+          id: item.DistribucionId,
+          name: item.Nombre
+        })
+      })
+      this.subjects = subjects;
+      this.gettingData = false;
+    }).catch((err) => console.log(err));
+  }
+
+  async openSubjectActivitiesModal(subject) {
+    const modal = await this.modalController.create({
+      component: ModalActivityPage,
+      componentProps: {
+        subject,
+        activity: this.selectedActivity
+      },
     });
-    await alert.present();
+    return await modal.present();
+  }
+
+  tabChange(event) {
+    this.selectedActivity = event.detail.value;
   }
 }

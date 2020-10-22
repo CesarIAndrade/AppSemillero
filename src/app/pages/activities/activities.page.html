@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <ion-toolbar>
-  <ion-segment scrollable value="1">
+  <ion-segment scrollable value="1" (ionChange)="tabChange($event)">
     <ion-segment-button
       [value]="gameType.idTipoJuego"
       *ngFor="let gameType of gameTypes"
@@ -12,9 +12,14 @@
 </ion-toolbar>
 
 <ion-content>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="createChallenge()">
-      <ion-icon name="add-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  <span class="spinner" *ngIf="gettingData">
+    <ion-progress-bar type="indeterminate"></ion-progress-bar>
+  </span>
+  <ion-list inset="true" *ngIf="!gettingData">
+    <span *ngFor="let subject of subjects">
+      <ion-item (click)="openSubjectActivitiesModal(subject)" lines="none">
+        <ion-label> {{ subject.name }} </ion-label>
+      </ion-item>
+    </span>
+  </ion-list>
 </ion-content>

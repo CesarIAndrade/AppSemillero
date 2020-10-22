@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> {{ subject.name }} </ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="createForum()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-card *ngFor="let forum of forums">
+    <ion-card-header>
+      <ion-card-subtitle>{{ forum.subtema }}</ion-card-subtitle>
+      <ion-card-title> {{ forum.tema }} </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Fecha Apertura: {{ forum.fecha | date: "yyyy-MM-dd" }}</p>
+      <p>Fecha Cierre: {{ forum.fechaCierre | date: "yyyy-MM-dd" }}</p>
+      <div class="actions">
+        <ion-item>
+          <ion-icon
+            (click)="openForum(forum)"
+            slot="start"
+            name="chatbubbles-outline"
+          ></ion-icon>
+          <span>{{ forum.Contador }}</span>
+        </ion-item>
+        <ion-item>
+          <ion-icon
+            (click)="validateLike(forum)"
+            [style]="forum.like_dislike_color"
+            slot="start"
+            name="thumbs-up-outline"
+          ></ion-icon>
+          <span>{{ forum.nLikes }}</span>
+        </ion-item>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

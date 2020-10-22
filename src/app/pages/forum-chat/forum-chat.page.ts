@@ -23,6 +23,7 @@ export class ForumChatPage implements OnInit {
   @Input() forumId: string;
   comments: any[] = [];
   user: any;
+  comment: string;
 
   dismiss() {
     this.modalController.dismiss({
@@ -45,7 +46,7 @@ export class ForumChatPage implements OnInit {
       .commentInForum(comment, this.forumId, this.user.idRegistro)
       .then((res) => {
         this.getForumComments();
-        comment = "";
+        this.forumsSvc.refresh$.emit();
       })
       .catch((err) => console.log(err));
   }
