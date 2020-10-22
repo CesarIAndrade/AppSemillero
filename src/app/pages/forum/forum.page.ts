@@ -42,6 +42,7 @@ export class ForumPage implements OnInit {
           })
         })
         this.subjects = subjects;
+        this.gettingData = false;
       })
       .catch((err) => console.log(err));
   }

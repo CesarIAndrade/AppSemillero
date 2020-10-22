@@ -18,6 +18,7 @@ export class ModalForumsPage implements OnInit {
   ngOnInit() {
     this.getSubjectForums(this.subject.id);
     this.user = JSON.parse(localStorage.getItem("user"));
+    this.user.idTipo == 1 ? this.teacher = true : this.teacher = false;
     this.forumsSvc.refresh$.subscribe(() => {
       this.getSubjectForums(this.subject.id);
     })
@@ -26,6 +27,7 @@ export class ModalForumsPage implements OnInit {
   @Input() subject: any;
   forums: any[] = [];
   user: any;
+  teacher: boolean;
 
   dismiss() {
     this.modalController.dismiss({

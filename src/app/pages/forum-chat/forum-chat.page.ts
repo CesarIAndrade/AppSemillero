@@ -41,12 +41,13 @@ export class ForumChatPage implements OnInit {
       .catch((err) => console.log(err));
   }
 
-  sendComment(comment) {
+  sendComment() {
     this.forumsSvc
-      .commentInForum(comment, this.forumId, this.user.idRegistro)
-      .then((res) => {
+      .commentInForum(this.comment, this.forumId, this.user.idRegistro)
+      .then(() => {
         this.getForumComments();
         this.forumsSvc.refresh$.emit();
+        this.comment = "";
       })
       .catch((err) => console.log(err));
   }
