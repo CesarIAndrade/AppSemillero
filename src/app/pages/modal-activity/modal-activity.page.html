@@ -15,4 +15,20 @@
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+  <app-spinner *ngIf="gettingData"></app-spinner>
+
+  <ion-list *ngIf="!gettingData" inset="true">
+    <span *ngFor="let challenge of challenges">
+      <ion-item class="challenge" lines="none">
+        <ion-label>
+          <h2>{{ challenge.tema }}</h2>
+          <h3>
+            {{ challenge.puntos }} puntos - {{ challenge.tiempoSegundos }}
+            segundos
+          </h3>
+          <p>{{ challenge.descripcion }}</p>
+        </ion-label>
+      </ion-item>
+    </span>
+  </ion-list>
 </ion-content>

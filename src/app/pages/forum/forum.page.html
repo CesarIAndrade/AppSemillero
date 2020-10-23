@@ -1,14 +1,5 @@
 <app-header></app-header>
 
 <ion-content>
-  <span class="spinner" *ngIf="gettingData">
-    <ion-progress-bar type="indeterminate"></ion-progress-bar>
-  </span>
-  <ion-list inset="true" *ngIf="!gettingData">
-    <span *ngFor="let subject of subjects">
-      <ion-item (click)="openSubjectForumsModal(subject)" lines="none">
-        <ion-label> {{ subject.name }} </ion-label>
-      </ion-item>
-    </span>
-  </ion-list>
+  <app-subject-list></app-subject-list>
 </ion-content>

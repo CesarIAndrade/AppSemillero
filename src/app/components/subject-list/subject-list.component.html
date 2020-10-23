@@ -1,0 +1,13 @@
+<app-spinner *ngIf="gettingData"></app-spinner>
+<ion-list inset="true">
+  <span *ngFor="let subject of subjects">
+    <ion-item
+      lines="none"
+      class="subject"
+      (click)="handleClick(subject)"
+    >
+      <ion-label> {{ subject.name }} </ion-label>
+      <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+  </span>
+</ion-list>

@@ -1,31 +1,38 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
+import { Component, Input, OnInit } from "@angular/core";
+import { AlertController, ModalController } from "@ionic/angular";
+import { SubjectService } from "src/app/services/subject.service";
 
 @Component({
-  selector: 'app-modal-activity',
-  templateUrl: './modal-activity.page.html',
-  styleUrls: ['./modal-activity.page.scss'],
+  selector: "app-modal-activity",
+  templateUrl: "./modal-activity.page.html",
+  styleUrls: ["./modal-activity.page.scss"],
 })
 export class ModalActivityPage implements OnInit {
-
   constructor(
     private modalController: ModalController,
-    private alertController: AlertController
-  ) { }
+    private alertController: AlertController,
+    private subjectSvc: SubjectService
+  ) {}
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem("user"));
+    this.getSubjectChallenges();
+    console.log(this.activity);
+  }
 
   @Input() subject: any;
   @Input() activity: string;
+  user: any;
+  challenges: any[] = [];
+  gettingData = true;
 
   dismiss() {
     this.modalController.dismiss({
-      'dismissed': true
+      dismissed: true,
     });
   }
 
   async createChallenge() {
-    var date = new Date().toJSON().split("T")[0];
     const alert = await this.alertController.create({
       header: "Crear reto",
       inputs: [
@@ -35,15 +42,19 @@ export class ModalActivityPage implements OnInit {
           placeholder: "Tema",
         },
         {
-          name: "subTopic",
+          name: "description",
           type: "text",
-          placeholder: "SubTema",
+          placeholder: "Descripción",
         },
         {
-          name: "limitDate",
-          type: "date",
-          min: date,
-          value: date,
+          name: "points",
+          type: "number",
+          placeholder: "Puntos",
+        },
+        {
+          name: "time",
+          type: "number",
+          placeholder: "Tiempo Límite",
         },
       ],
       buttons: [
@@ -54,15 +65,17 @@ export class ModalActivityPage implements OnInit {
         {
           text: "Guardar",
           handler: (alertData) => {
-            // this.forumsSvc
-            //   .createForum(
-            //     alertData.topic,
-            //     alertData.subTopic,
-            //     alertData.limitDate,
-            //     this.user.idRegistro
-            //   )
-            //   .then((res) => this.getForums(this.user.idRegistro))
-            //   .catch((err) => console.log(err));
+            var challenge = {
+              user: this.user.idRegistro,
+              activity: this.activity,
+              description: alertData.description,
+              topic: alertData.topic,
+              points: alertData.points,
+              time: alertData.time,
+              subject: this.subject.id,
+              students: "",
+            };
+            this.createSubjectChallenge(challenge);
           },
         },
       ],
@@ -70,5 +83,23 @@ export class ModalActivityPage implements OnInit {
     await alert.present();
   }
 
+  createSubjectChallenge(challenge) {
+    this.subjectSvc
+      .createSubjectChallenge(challenge)
+      .then(() => {
+        this.getSubjectChallenges();
+      })
+      .catch((err) => console.log(err));
+  }
 
+  getSubjectChallenges() {
+    this.subjectSvc
+      .getSubjectChallenges(this.user.idRegistro, this.subject.id)
+      .then((res: any) => {
+        console.log(res);
+        this.challenges = res.Success;
+        this.gettingData = false;
+      })
+      .catch((err) => console.log(err));
+  }
 }

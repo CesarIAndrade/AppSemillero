@@ -7,7 +7,9 @@ export const environment = {
 };
 
 export const apiUrl = "http://26.175.169.125:91/api/";
-export const realTimeApiUrl = "http://26.175.169.125:92/api/";
+export const laravelApiUrl = "http://26.155.20.209:8080/ApiApp/public/api/"
+
+// http://26.155.20.209:8080/ApiApp/public/api/listar
 
 // export const apiUrl = "http://25.39.0.74:91/api/";
 

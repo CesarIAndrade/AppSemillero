@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<ion-toolbar>
+<ion-toolbar *ngIf="gettingData">
   <ion-segment scrollable value="1" (ionChange)="tabChange($event)">
     <ion-segment-button
       [value]="gameType.idTipoJuego"
@@ -12,14 +12,5 @@
 </ion-toolbar>
 
 <ion-content>
-  <span class="spinner" *ngIf="gettingData">
-    <ion-progress-bar type="indeterminate"></ion-progress-bar>
-  </span>
-  <ion-list inset="true" *ngIf="!gettingData">
-    <span *ngFor="let subject of subjects">
-      <ion-item (click)="openSubjectActivitiesModal(subject)" lines="none">
-        <ion-label> {{ subject.name }} </ion-label>
-      </ion-item>
-    </span>
-  </ion-list>
+  <app-subject-list [selectedActivity]="selectedActivity"></app-subject-list>
 </ion-content>
