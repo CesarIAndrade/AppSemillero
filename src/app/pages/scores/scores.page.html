@@ -1,7 +1,7 @@
 <app-header></app-header>
 
-<ion-content>
-  <ion-list inset="true">
+<ion-content class="background">
+  <ion-list inset="true" class="colorLis" mode="ios">
     <ion-item
       *ngFor="let card of cards"
       (click)="presentModal(card)"

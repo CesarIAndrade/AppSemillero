@@ -6,7 +6,13 @@ ion-card-header {
     height: 13rem;
 }
 
+ion-card{
+    --background: rgba(112, 228, 228, 0.664);
+    border-radius: 30px
+}
+
 ion-card-header > img {
     height: 100%;
     width: 100%;
+    border-radius: 30px
 }
