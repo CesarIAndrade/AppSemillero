@@ -7,7 +7,7 @@ export const environment = {
 };
 
 export const apiUrl = "http://localhost:57484/api/";
-export const laravelApiUrl = "http://localhost:57484/ApiApp/public/api/"
+export const laravelApiUrl = "http://26.155.20.209:8080/ApiApp/public/api/"
 
 // http://26.155.20.209:8080/ApiApp/public/api/listar
 

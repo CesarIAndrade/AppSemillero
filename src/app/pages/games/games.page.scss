@@ -7,8 +7,9 @@ ion-card-header {
 }
 
 ion-card{
-    --background: rgba(112, 228, 228, 0.664);
-    border-radius: 30px
+    --background: var(--ion-color-success-contrast);
+    border-radius: 10px;
+    border:2px solid rgb(10, 243, 88);
 }
 
 ion-card-header > img {
