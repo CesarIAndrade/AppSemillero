@@ -2,7 +2,8 @@
     --background: var(--ion-item-background, var(--ion-background-color, rgb(255, 255, 255)));
   } */
   ion-menu {
-    --ion-background-color: rgb(102, 236, 236);
+    /* --ion-background-color: rgb(102, 236, 236); */
+    --ion-background-color: var(--ion-color-tertiary-tint);
     --ion-text-color: rgb(3, 3, 3);
   
     ion-toolbar {

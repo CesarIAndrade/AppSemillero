@@ -25,6 +25,15 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-ion-content.background{
-    --background: url("/../assets/login/fondo23.jpg") 0 0/100% 100% no-repeat;
+.backgroundBody{
+    /* --background: url("/../assets/login/fondo25.jpg") 0 0/100% 100% no-repeat; */
+    --ion-background-color: var(-ion-color-danger-contrast);
+}
+.backgroundHeader{
+    /* --background: url("/../assets/login/fondo24.jpg") 0 0/100% 100% no-repeat; */
+    --ion-background-color: var(--ion-color-success-shade)
+}
+.backgroundPerfil{
+    /* --background: url("/../assets/login/fondo24.jpg") 0 0/100% 100% no-repeat; */
+    --ion-background-color: #6fddaaa1;
 }

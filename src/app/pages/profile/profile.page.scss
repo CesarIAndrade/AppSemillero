@@ -1,11 +1,11 @@
 ion-card.colorCard{
-  --background: var(--ion-color-success-shade2);
+  /* --background: var(--ion-color-success-shade2); */
   border-radius: 10px;
-  border:2px solid rgb(10, 243, 88);
+  border:2px solid rgb(10, 150, 243);
 }
 ion-chip{
-  --background: var(--ion-color-success-shade2);
-  border:2px solid rgb(10, 243, 88);
+  /* --background: var(--ion-color-success-shade2); */
+  border:2px solid rgb(10, 150, 243);
 }
 ion-card-title{
   text-align: center;
@@ -73,5 +73,5 @@ ion-label {
 
 ion-avatar {
   background: #fff;
-  border:2px solid rgb(10, 243, 88);
+  border:2px solid rgb(10, 150, 243);
 }
