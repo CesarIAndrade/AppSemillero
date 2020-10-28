@@ -29,6 +29,8 @@ export class SidemenuPage implements OnInit {
   }
 
   ngOnInit() {    
+    console.log(this.router.url);
+    
     this.setUserData();
     this.userSvc.refresh$.subscribe(() => {
       this.setUserData();

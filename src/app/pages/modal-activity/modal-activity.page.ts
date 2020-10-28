@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { AlertController, ModalController } from "@ionic/angular";
 import { SubjectService } from "src/app/services/subject.service";
+import { ModalStudentsPage } from "../modal-students/modal-students.page";
 
 @Component({
   selector: "app-modal-activity",
@@ -17,7 +18,6 @@ export class ModalActivityPage implements OnInit {
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem("user"));
     this.getSubjectChallenges();
-    console.log(this.activity);
   }
 
   @Input() subject: any;
@@ -33,6 +33,7 @@ export class ModalActivityPage implements OnInit {
   }
 
   async createChallenge() {
+    var date = new Date().toJSON().split("T")[0];
     const alert = await this.alertController.create({
       header: "Crear reto",
       inputs: [
@@ -56,6 +57,12 @@ export class ModalActivityPage implements OnInit {
           type: "number",
           placeholder: "Tiempo Límite",
         },
+        {
+          name: "limitDate",
+          type: "date",
+          min: date,
+          value: date,
+        },
       ],
       buttons: [
         {
@@ -74,6 +81,7 @@ export class ModalActivityPage implements OnInit {
               time: alertData.time,
               subject: this.subject.id,
               students: "",
+              limitDate: alertData.limitDate,
             };
             this.createSubjectChallenge(challenge);
           },
@@ -96,10 +104,20 @@ export class ModalActivityPage implements OnInit {
     this.subjectSvc
       .getSubjectChallenges(this.user.idRegistro, this.subject.id)
       .then((res: any) => {
-        console.log(res);
         this.challenges = res.Success;
         this.gettingData = false;
       })
       .catch((err) => console.log(err));
   }
+
+  async openSubjectStudentsModal(challenge) {
+    const modal = await this.modalController.create({
+      component: ModalStudentsPage,
+      componentProps: {
+        challenge,
+      },
+    });
+    return await modal.present();
+  }
+
 }

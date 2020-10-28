@@ -6,12 +6,10 @@ export const environment = {
   production: false
 };
 
-export const apiUrl = "http://localhost:57484/api/";
-export const laravelApiUrl = "http://localhost:57484/ApiApp/public/api/"
+// export const apiUrl = "http://localhost:57484/api/";
 
-// http://26.155.20.209:8080/ApiApp/public/api/listar
-
-// export const apiUrl = "http://25.39.0.74:91/api/";
+export const apiUrl = "http://26.175.169.125:91/api/";
+export const laravelApiUrl = "http://26.155.20.209:8080/ApiApp/public/api/";
 
 /*
  * For easier debugging in development mode, you can import the following file

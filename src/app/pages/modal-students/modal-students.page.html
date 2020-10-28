@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> subject.name </ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-spinner *ngIf="gettingData"></app-spinner>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="confirmSend()">
+      <ion-icon name="send-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-list>
+    <ion-item *ngFor="let student of students">
+      <ion-label>
+        <h2>
+          {{ student.Nombres }} {{ student.SegundoNombre }} {{
+          student.ApellidoPaterno }} {{ student.ApellidoMaterno }}
+        </h2>
+        <p>{{ student.Cedula }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

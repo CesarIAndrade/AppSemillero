@@ -44,6 +44,10 @@ const routes: Routes = [
   {
     path: 'modal-forums',
     loadChildren: () => import('./pages/modal-forums/modal-forums.module').then( m => m.ModalForumsPageModule)
+  },
+  {
+    path: 'modal-students',
+    loadChildren: () => import('./pages/modal-students/modal-students.module').then( m => m.ModalStudentsPageModule)
   }
 
 ];

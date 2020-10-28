@@ -2,12 +2,12 @@
     --background: var(--ion-item-background, var(--ion-background-color, rgb(255, 255, 255)));
   } */
   ion-menu {
-    --ion-background-color: rgb(102, 236, 236);
-    --ion-text-color: rgb(3, 3, 3);
+    // --ion-background-color: rgb(102, 236, 236);
+    // --ion-text-color: rgb(3, 3, 3);
   
-    ion-toolbar {
-      --background: var(--ion-color-primary);
-    }
+    // ion-toolbar {
+    //   --background: var(--ion-color-primary);
+    // }
   
     ion-list {
       background: transparent;
