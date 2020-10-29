@@ -1,8 +1,13 @@
 ion-card.colorCard{
-  --background: rgba(112, 228, 228, 0.664);
-  border-radius: 30px
+  /* --background: var(--ion-color-success-shade2); */
+  border-radius: 10px;
+  border:2px solid rgb(10, 150, 243);
 }
-ion-card-title.estilo{
+ion-chip{
+  /* --background: var(--ion-color-success-shade2); */
+  border:2px solid rgb(10, 150, 243);
+}
+ion-card-title{
   text-align: center;
   font-weight: 900;
 }
@@ -50,7 +55,7 @@ ion-card-title.estilo{
 }
 
 h2 {
-  color: rgb(3, 3, 3);
+  color: var(--ion-color-warning-contrast);
   font: oblique bold 120% cursive;
   font-weight: 900;
 }
@@ -68,4 +73,5 @@ ion-label {
 
 ion-avatar {
   background: #fff;
+  border:2px solid rgb(10, 150, 243);
 }

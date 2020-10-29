@@ -18,6 +18,9 @@ export class ModalActivityPage implements OnInit {
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem("user"));
     this.getSubjectChallenges();
+    this.subjectSvc.refresh$.subscribe(() => {
+      this.getSubjectChallenges();
+    });
   }
 
   @Input() subject: any;
@@ -107,7 +110,10 @@ export class ModalActivityPage implements OnInit {
         this.challenges = res.Success;
         this.gettingData = false;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        this.gettingData = false;
+      });
   }
 
   async openSubjectStudentsModal(challenge) {
@@ -119,5 +125,4 @@ export class ModalActivityPage implements OnInit {
     });
     return await modal.present();
   }
-
 }

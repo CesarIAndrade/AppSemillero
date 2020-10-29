@@ -1,4 +1,4 @@
-<ion-content class="background">
+<ion-content class="backgroundPerfil">
   <div class="profile-widget">
     <!-- <img src="../../../assets/profile-banner.jpg" alt=""> -->
     <ion-avatar  class="profile-avatar">
@@ -9,8 +9,8 @@
     </ion-avatar>
     <br>
     <br>
-    <ion-chip color="Tertiary">
-      <ion-label color="Tertiary">{{ user.name }}</ion-label>
+    <ion-chip mode="ios">
+      <ion-label>{{ user.name }}</ion-label>
     </ion-chip>
   </div>
   <ion-grid fixed>
@@ -18,16 +18,16 @@
       <ion-col size-lg="4" offset-lg="4">
         <ion-card class="colorCard">
           <ion-card-header>
-            <ion-card-title class="estilo">Datos del usuario</ion-card-title>
+            <ion-card-title>Datos del usuario</ion-card-title>
           </ion-card-header>
           <ion-card-content mode="ios">
             <div class="info">
               <h2>Cédula</h2>
-              <ion-label> {{ user.document }} </ion-label>
+              <ion-label class="estilo"> {{ user.document }} </ion-label>
               <h2>Celular</h2>
-              <ion-label> {{ user.phone }} </ion-label>
+              <ion-label class="estilo"> {{ user.phone }} </ion-label>
               <h2>Correo</h2>
-              <ion-label> {{ user.mail }} </ion-label>
+              <ion-label class="estilo"> {{ user.mail }} </ion-label>
             </div>
           </ion-card-content>
         </ion-card>

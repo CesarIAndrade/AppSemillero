@@ -17,16 +17,35 @@
       <ion-icon name="send-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
   <ion-list>
+    <ion-list-header>Characters</ion-list-header>
+    <ion-item>
+      <ion-label><strong>Seleccionar todos</strong></ion-label>
+      <ion-checkbox mode="ios" slot="start" (click)="checkAll($event)" ></ion-checkbox>
+    </ion-item>
     <ion-item *ngFor="let student of students">
       <ion-label>
-        <h2>
+        <p>
           {{ student.Nombres }} {{ student.SegundoNombre }} {{
           student.ApellidoPaterno }} {{ student.ApellidoMaterno }}
-        </h2>
+        </p>
         <p>{{ student.Cedula }}</p>
       </ion-label>
+      <ion-checkbox
+        mode="ios"
+        color="primary"
+        (click)="student.checked = false"
+        *ngIf="student.checked"
+        checked
+        slot="start"
+      ></ion-checkbox>
+      <ion-checkbox
+        mode="ios"
+        color="primary"
+        (click)="student.checked = true"
+        *ngIf="!student.checked"
+        slot="start"
+      ></ion-checkbox>
     </ion-item>
   </ion-list>
 </ion-content>

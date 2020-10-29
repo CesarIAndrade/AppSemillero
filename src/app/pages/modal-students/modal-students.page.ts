@@ -15,12 +15,18 @@ export class ModalStudentsPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    if (this.challenge.Estudiantes.length > 0) {
+      this.challenge.Estudiantes.map((student) => {
+        this.asignedStudents.push(student.cedula);
+      });
+    }
     this.getStudentSubjects(this.challenge.distribucion);
   }
 
   @Input() challenge: any;
   gettingData = true;
   students: any[] = [];
+  asignedStudents: any[] = [];
 
   dismiss() {
     this.modalController.dismiss({
@@ -32,11 +38,18 @@ export class ModalStudentsPage implements OnInit {
     this.subjectSvc
       .getSubjectStudents(subject)
       .then((res: any) => {
-        console.log(res);
         this.students = res;
+        this.students.map((student) => {
+          this.asignedStudents.includes(student.Cedula)
+            ? (student.checked = true)
+            : (student.checked = false);
+        });
         this.gettingData = false;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        this.gettingData = false;
+      });
   }
 
   async confirmSend() {
@@ -54,19 +67,35 @@ export class ModalStudentsPage implements OnInit {
           handler: () => {
             var students = [];
             this.students.map((student) => {
-              students.push(student.Cedula);
+              if (student.checked == true) {
+                students.push(student.Cedula);
+              }
             });
             this.subjectSvc
-              .assignChallenge(this.challenge.distribucion, students)
-              .then((res) => {
-                console.log(res);
+              .assignChallenge(this.challenge.id, students)
+              .then((res: any) => {
+                if (res?.Success) {
+                  this.subjectSvc.refresh$.emit();
+                  this.dismiss();
+                }
               })
               .catch((err) => console.log(err));
           },
         },
       ],
     });
-
     await alert.present();
+  }
+
+  checkAll(event) {
+    if (event.target.checked) {
+      this.students.map((student) => {
+        student.checked = false;
+      });
+    } else {
+      this.students.map((student) => {
+        student.checked = true;
+      });
+    }
   }
 }

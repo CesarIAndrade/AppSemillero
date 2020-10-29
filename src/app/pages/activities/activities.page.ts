@@ -17,16 +17,19 @@ export class ActivitiesPage implements OnInit {
 
   gameTypes: any[] = [];
   selectedActivity = "1";
-  gettingData = false;
+  gettingData = true;
 
   getGameTypes() {
     this.activitiesSvc
       .getGameTypes()
       .then((res: any) => {
         this.gameTypes = res;
-        this.gettingData = true;
+        this.gettingData = false;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        this.gettingData = false;
+      })
   }
 
   tabChange(event) {

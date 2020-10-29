@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Injectable, EventEmitter} from "@angular/core";
 import { apiUrl, laravelApiUrl } from "src/environments/environment";
 
 @Injectable({
@@ -7,6 +7,8 @@ import { apiUrl, laravelApiUrl } from "src/environments/environment";
 })
 export class SubjectService {
   constructor(private http: HttpClient) {}
+
+  refresh$ = new EventEmitter();
 
   getSubjectSchedule(subject) {
     return new Promise((resolve, reject) => {
