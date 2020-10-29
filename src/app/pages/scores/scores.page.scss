@@ -1,7 +1,7 @@
 ion-list.colorLis{
-    border:2px solid rgb(10, 243, 88);
+    border:2px solid var(--ion-color-primary);
     border-radius: 10px;
 }
 ion-avatar {
-    border:1px solid rgb(10, 243, 88);
+    border:1px solid var(--ion-color-primary);
 }
