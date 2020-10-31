@@ -4,7 +4,7 @@ import { StudentService } from "src/app/services/student.service";
 import { TeacherService } from "src/app/services/teacher.service";
 import { ModalForumsPage } from "../../pages/modal-forums/modal-forums.page";
 import { ModalActivityPage } from "../../pages/modal-activity/modal-activity.page";
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-subject-list",
@@ -47,7 +47,10 @@ export class SubjectListComponent implements OnInit {
         this.subjects = subjects;
         this.gettingData = false;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        this.gettingData = false;
+      });
   }
 
   getTeacherSchedule(document) {
@@ -64,7 +67,10 @@ export class SubjectListComponent implements OnInit {
         this.subjects = subjects;
         this.gettingData = false;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        this.gettingData = false;
+      });
   }
 
   async openSubjectForumsModal(subject) {
@@ -89,7 +95,7 @@ export class SubjectListComponent implements OnInit {
   }
 
   handleClick(subject) {
-    if(this.router.url.split('/')[2] == 'foros') {
+    if (this.router.url.split("/")[2] == "foros") {
       this.openSubjectForumsModal(subject);
     } else {
       this.openSubjectActivitiesModal(subject);

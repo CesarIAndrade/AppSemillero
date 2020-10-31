@@ -19,9 +19,9 @@
   </ion-fab>
   <ion-list>
     <ion-list-header>Characters</ion-list-header>
-    <ion-item>
+    <ion-item lines="none">
       <ion-label><strong>Seleccionar todos</strong></ion-label>
-      <ion-checkbox mode="ios" slot="start" (click)="checkAll($event)" ></ion-checkbox>
+      <ion-checkbox mode="ios" [(ngModel)]="masterCheck"  slot="start" (click)="checkAll($event)" ></ion-checkbox>
     </ion-item>
     <ion-item *ngFor="let student of students">
       <ion-label>
@@ -34,7 +34,7 @@
       <ion-checkbox
         mode="ios"
         color="primary"
-        (click)="student.checked = false"
+        (click)="handleClick(student)"
         *ngIf="student.checked"
         checked
         slot="start"
@@ -42,7 +42,7 @@
       <ion-checkbox
         mode="ios"
         color="primary"
-        (click)="student.checked = true"
+        (click)="handleClick(student)"
         *ngIf="!student.checked"
         slot="start"
       ></ion-checkbox>
