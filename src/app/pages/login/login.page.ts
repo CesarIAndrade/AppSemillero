@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
+import { AlertController } from "@ionic/angular";
 import { AuthService } from "src/app/services/auth.service";
 
 @Component({
@@ -9,7 +10,11 @@ import { AuthService } from "src/app/services/auth.service";
   styleUrls: ["./login.page.scss"],
 })
 export class LoginPage implements OnInit {
-  constructor(private authSvc: AuthService, private router: Router) {
+  constructor(
+    private authSvc: AuthService,
+    private router: Router,
+    public alertController: AlertController
+  ) {
     this.loginForm = new FormGroup({
       username: new FormControl(""),
       password: new FormControl(""),
@@ -27,11 +32,11 @@ export class LoginPage implements OnInit {
         this.loginForm.get("username").value,
         this.loginForm.get("password").value
       )
-      .then(res => {
+      .then((res) => {
         if (res["usuario"]) {
           this.loginForm.reset();
           localStorage.setItem("user", JSON.stringify(res));
-          if (res['idTipo'] == 1) {
+          if (res["idTipo"] == 1) {
             var appPages = [
               {
                 title: "Actividades",
@@ -78,14 +83,23 @@ export class LoginPage implements OnInit {
               },
             ];
           }
-          localStorage.setItem('routes', JSON.stringify(appPages))
+          localStorage.setItem("routes", JSON.stringify(appPages));
           this.router.navigateByUrl(appPages[0].url);
         } else {
-          alert("no user!!");
+          this.presentAlert('Datos incorrectos');
         }
       })
       .catch((err) => {
         console.log(err);
+        this.presentAlert('Datos incorrectos');
       });
+  }
+
+  async presentAlert(message) {
+    const alert = await this.alertController.create({
+      message: message,
+      buttons: ["OK"],
+    });
+    await alert.present();
   }
 }
