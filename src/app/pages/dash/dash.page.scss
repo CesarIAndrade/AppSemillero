@@ -1,5 +1,5 @@
 ion-card{
     --background: rgb(255, 255, 255);
     border-radius: 10px;
-    border:2px solid rgb(10, 243, 88);
+    border:2px solid var(--ion-color-primary);
 }
