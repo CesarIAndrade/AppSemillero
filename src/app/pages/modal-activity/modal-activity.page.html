@@ -18,23 +18,49 @@
   <app-spinner *ngIf="gettingData"></app-spinner>
 
   <ion-list *ngIf="!gettingData" inset="true">
-    <ion-item-sliding class="challenge" *ngFor="let challenge of challenges">
-      <ion-item>
-        <ion-label>
-          <h2>{{ challenge.tema }}</h2>
-          <h3>
-            {{ challenge.puntos }} puntos - {{ challenge.tiempoSegundos }}
-            segundos
-          </h3>
-          <p>{{ challenge.Estudiantes.length }} estudiantes asignados</p>
-        </ion-label>
-      </ion-item>
-      <ion-item-options side="start">
-        <ion-item-option color="danger"> Cerrar </ion-item-option>
-      </ion-item-options>
-      <ion-item-options>
-        <ion-item-option (click)="openSubjectStudentsModal(challenge)" color="warning"> Enviar </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
+    <ion-item-group *ngFor="let challenge of challenges">
+      <ion-item-divider sticky>
+        <ion-label> {{challenge.label}} </ion-label>
+      </ion-item-divider>
+      <ion-item-sliding
+        class="challenge"
+        *ngFor="let _challenge of challenge.challenges"
+      >
+        <ion-item (click)="openChanllengeQuestionsModal(_challenge)">
+          <ion-label>
+            <h2>{{ _challenge.tema }}</h2>
+            <h3>
+              {{ _challenge.puntos }} puntos - {{ _challenge.tiempoSegundos }}
+              segundos
+            </h3>
+            <p>{{ _challenge.Estudiantes.length }} estudiantes asignados</p>
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="start" *ngIf="challenge.state == '1'">
+          <ion-item-option
+            color="danger"
+            (click)="changeChallengeState(_challenge)"
+          >
+            Cerrar
+          </ion-item-option>
+        </ion-item-options>
+        <ion-item-options side="start" *ngIf="challenge.state == '0'">
+          <ion-item-option
+            color="success"
+            (click)="changeChallengeState(_challenge)"
+          >
+            Habilitar
+          </ion-item-option>
+        </ion-item-options>
+        <ion-item-options>
+          <ion-item-option
+            (click)="openSubjectStudentsModal(_challenge)"
+            color="warning"
+          >
+            Enviar
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-item-group>
   </ion-list>
 </ion-content>

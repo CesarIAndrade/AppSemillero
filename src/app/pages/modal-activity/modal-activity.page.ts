@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { AlertController, ModalController } from "@ionic/angular";
+import { ChallengesService } from "src/app/services/challenges.service";
 import { SubjectService } from "src/app/services/subject.service";
 import { ModalStudentsPage } from "../modal-students/modal-students.page";
+import { ModalChallengeQuestionsPage } from "../modal-challenge-questions/modal-challenge-questions.page";
 
 @Component({
   selector: "app-modal-activity",
@@ -12,7 +14,8 @@ export class ModalActivityPage implements OnInit {
   constructor(
     private modalController: ModalController,
     private alertController: AlertController,
-    private subjectSvc: SubjectService
+    private subjectSvc: SubjectService,
+    private challengesSvc: ChallengesService
   ) {}
 
   ngOnInit() {
@@ -107,7 +110,25 @@ export class ModalActivityPage implements OnInit {
     this.subjectSvc
       .getSubjectChallenges(this.user.idRegistro, this.subject.id)
       .then((res: any) => {
-        this.challenges = res.Success;
+        var enabledChallenges = [];
+        var disabledChallenges = [];
+        res.Success.map((challenge) => {
+          challenge.estado == "1"
+            ? enabledChallenges.push(challenge)
+            : disabledChallenges.push(challenge);
+        });
+        this.challenges = [
+          {
+            label: "Habilitados",
+            state: "1",
+            challenges: enabledChallenges,
+          },
+          {
+            label: "Deshabilitados",
+            state: "0",
+            challenges: disabledChallenges,
+          },
+        ];
         this.gettingData = false;
       })
       .catch((err) => console.log(err))
@@ -125,4 +146,28 @@ export class ModalActivityPage implements OnInit {
     });
     return await modal.present();
   }
+
+  changeChallengeState(challenge) {
+    var challengeState: string;
+    challenge.estado == "1" ? (challengeState = "0") : (challengeState = "1");
+    challenge.estado = challengeState;
+    this.challengesSvc
+      .changeChallengeState(challenge.id, challengeState)
+      .then((res) => {
+        this.getSubjectChallenges();
+      })
+      .catch((err) => console.log(err));
+  }
+
+  async openChanllengeQuestionsModal(challenge) {
+    const modal = await this.modalController.create({
+      component: ModalChallengeQuestionsPage,
+      componentProps: {
+        challenge,
+      },
+    });
+    return await modal.present();
+  }
+
+
 }
