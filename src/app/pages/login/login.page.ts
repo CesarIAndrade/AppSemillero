@@ -33,7 +33,6 @@ export class LoginPage implements OnInit {
         this.loginForm.get("password").value
       )
       .then((res) => {
-        if (res["usuario"]) {
           this.loginForm.reset();
           localStorage.setItem("user", JSON.stringify(res));
           if (res["idTipo"] == 1) {
@@ -85,9 +84,6 @@ export class LoginPage implements OnInit {
           }
           localStorage.setItem("routes", JSON.stringify(appPages));
           this.router.navigateByUrl(appPages[0].url);
-        } else {
-          this.presentAlert('Datos incorrectos');
-        }
       })
       .catch((err) => {
         console.log(err);

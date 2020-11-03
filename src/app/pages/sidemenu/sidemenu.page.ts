@@ -46,6 +46,8 @@ export class SidemenuPage implements OnInit {
   user: any;
 
   logout() {
+    this.appPages = [];
+    this.user = {};
     localStorage.clear();
     this.router.navigate(["/login"]);
   }
