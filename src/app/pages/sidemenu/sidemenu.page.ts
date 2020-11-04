@@ -28,7 +28,7 @@ export class SidemenuPage implements OnInit {
     });
   }
 
-  ngOnInit() {    
+  ngOnInit() {
     console.log(this.router.url);
     
     this.setUserData();
@@ -57,7 +57,14 @@ export class SidemenuPage implements OnInit {
     if (!user) {
       this.router.navigate(["/login"]);
     }
-    user.avatar = `../../../assets/avatars/${user.avatar}.png`;    
+    /////////Luis Chichanda Locura/////////
+    if (user.avatar != "N/A" ){
+      user.avatar = `../../../assets/avatars/${user.avatar}.png`;
+    }else{
+      user.avatar = `../../../assets/avatars/default.png`;
+    }
+    ///////////////////////////////////////
+    /* user.avatar = `../../../assets/avatars/${user.avatar}.png`; */ //esto es de Cesar
     user.names = `${user.nombres.split(" ")[0]} ${user.nombres.split(" ")[2]}`;
     this.user = user;
   }
