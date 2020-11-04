@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { WordSoupPage } from './word-soup.page';
+import { ModalChallengeQuestionsPage } from './modal-challenge-questions.page';
 
-describe('WordSoupPage', () => {
-  let component: WordSoupPage;
-  let fixture: ComponentFixture<WordSoupPage>;
+describe('ModalChallengeQuestionsPage', () => {
+  let component: ModalChallengeQuestionsPage;
+  let fixture: ComponentFixture<ModalChallengeQuestionsPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WordSoupPage ],
+      declarations: [ ModalChallengeQuestionsPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(WordSoupPage);
+    fixture = TestBed.createComponent(ModalChallengeQuestionsPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

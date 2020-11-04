@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { AlertController, ModalController } from "@ionic/angular";
+import { ChallengesService } from "src/app/services/challenges.service";
 import { SubjectService } from "src/app/services/subject.service";
 
 @Component({
@@ -11,7 +12,8 @@ export class ModalStudentsPage implements OnInit {
   constructor(
     private modalController: ModalController,
     private subjectSvc: SubjectService,
-    public alertController: AlertController
+    private alertController: AlertController,
+    private challengesSvc: ChallengesService
   ) {}
 
   ngOnInit() {
@@ -70,7 +72,7 @@ export class ModalStudentsPage implements OnInit {
           text: "Okay",
           handler: () => {
             console.log(this.handleAssignment);
-            
+
             this.handleAssignment
               ? this.assignChallenge()
               : this.unassignChallenge();
@@ -102,12 +104,12 @@ export class ModalStudentsPage implements OnInit {
         students.push(student.Cedula);
       }
     });
-    this.subjectSvc
-      .assignChallenge(this.challenge.id, students)
+    this.challengesSvc
+      .assignStudentsToChallenge(this.challenge.id, students)
       .then((res: any) => {
         console.log(res);
         if (res?.Success) {
-          this.subjectSvc.refresh$.emit();
+          this.challengesSvc.refresh$.emit();
           this.dismiss();
         }
       })
@@ -121,12 +123,12 @@ export class ModalStudentsPage implements OnInit {
         students.push(student.Cedula);
       }
     });
-    this.subjectSvc
-      .unassignChallenge(this.challenge.id, students)
+    this.challengesSvc
+      .unassignStudentsToChallenge(this.challenge.id, students)
       .then((res: any) => {
         console.log(res);
         if (res?.Success) {
-          this.subjectSvc.refresh$.emit();
+          this.challengesSvc.refresh$.emit();
           this.dismiss();
         }
       })

@@ -41,28 +41,56 @@ const routes: Routes = [
           import("../profile/profile.module").then((m) => m.ProfilePageModule),
       },
       {
-        path: "sopa-de-letras",
-        loadChildren: () =>
-          import("../word-soup/word-soup.module").then(
-            (m) => m.WordSoupPageModule
-          ),
-      },
-      {
         path: "ahorcado",
         loadChildren: () =>
           import("../hanged/hanged.module").then((m) => m.HangedPageModule),
       },
       {
-        path: "crucigrama",
-        loadChildren: () =>
-          import("../cross-word/cross-word.module").then(
-            (m) => m.CrossWordPageModule
-          ),
-      },
-      {
         path: "qqsm",
         loadChildren: () =>
           import("../wwtbm/wwtbm.module").then((m) => m.WwtbmPageModule),
+      },
+      {
+        path: "modal-scores",
+        loadChildren: () =>
+          import("../modal-scores/modal-scores.module").then(
+            (m) => m.ModalScoresPageModule
+          ),
+      },
+      {
+        path: "forum-chat",
+        loadChildren: () =>
+          import("../forum-chat/forum-chat.module").then(
+            (m) => m.ForumChatPageModule
+          ),
+      },
+      {
+        path: "modal-activity",
+        loadChildren: () =>
+          import("../modal-activity/modal-activity.module").then(
+            (m) => m.ModalActivityPageModule
+          ),
+      },
+      {
+        path: "modal-forums",
+        loadChildren: () =>
+          import("../modal-forums/modal-forums.module").then(
+            (m) => m.ModalForumsPageModule
+          ),
+      },
+      {
+        path: "modal-students",
+        loadChildren: () =>
+          import("../modal-students/modal-students.module").then(
+            (m) => m.ModalStudentsPageModule
+          ),
+      },
+      {
+        path: "modal-challenge-questions",
+        loadChildren: () =>
+          import(
+            "../modal-challenge-questions/modal-challenge-questions.module"
+          ).then((m) => m.ModalChallengeQuestionsPageModule),
       },
     ],
   },

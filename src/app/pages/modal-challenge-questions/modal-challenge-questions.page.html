@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> {{ challenge.tema }} </ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="createQuestion()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <!-- <ion-list inset="true">
+    <ion-item-group *ngFor="let question of questions">
+      <ion-item lines="none" class="question">
+        <ion-label> {{question.descripcion}} </ion-label>
+      </ion-item>
+      <ion-item-sliding
+        class="challenge"
+        *ngFor="let answer of question.Respuestas"
+      >
+        <ion-item class="answer" lines="none">
+          <ion-label> {{answer.descripcion}} </ion-label>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-item-group>
+  </ion-list> -->
+
+  <ion-list>
+    <div *ngFor="let group of groups">
+      <ion-item
+        class="item-stable"
+        (click)="toggleGroup(group)"
+        [ngClass]="{active: isGroupShown(group)}"
+      >
+        <i
+          class="icon"
+          [ngClass]="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"
+        ></i>
+        &nbsp; Group {{group.name}}
+      </ion-item>
+      <ion-item
+        class="item-accordion"
+        *ngFor="let item of group.items"
+        [hidden]="isGroupShown(group)"
+      >
+        {{item}}
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>
