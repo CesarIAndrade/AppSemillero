@@ -17,39 +17,12 @@ export class ModalChallengeQuestionsPage implements OnInit {
   ngOnInit() {
     this.getChallengeQuestions();
     this.user = JSON.parse(localStorage.getItem("user"));
-
-    this.groups.map((group: any) => {
-      for (var j=0; j<3; j++) {
-        group.items.push(j);
-      }
-    })
-
-    console.log(this.groups);
-    
-
-    
   }
 
   @Input() challenge: any;
   user: any;
   questions: any[] = [];
-  groups = [
-    {
-      name: "1",
-      items: [],
-      show: false
-    },
-    {
-      name: "2",
-      items: [],
-      show: false
-    },
-    {
-      name: "3",
-      items: [],
-      show: false
-    }
-  ];
+  gettingData = true;
 
   dismiss() {
     this.modalController.dismiss({
@@ -62,9 +35,16 @@ export class ModalChallengeQuestionsPage implements OnInit {
       .getChallengeQuestions(this.challenge.id)
       .then((res: any) => {
         console.log(res);
-        this.questions = res.Success;
+        res.Success.map((question) => {
+          question.show = true;
+          this.questions.push(question);
+        })
+        this.gettingData = false;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        this.gettingData = false;
+      })
   }
 
   async createQuestion() {

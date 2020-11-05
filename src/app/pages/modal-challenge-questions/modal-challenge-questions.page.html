@@ -15,23 +15,32 @@
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <!-- <ion-list inset="true">
-    <ion-item-group *ngFor="let question of questions">
-      <ion-item lines="none" class="question">
-        <ion-label> {{question.descripcion}} </ion-label>
-      </ion-item>
-      <ion-item-sliding
-        class="challenge"
-        *ngFor="let answer of question.Respuestas"
-      >
-        <ion-item class="answer" lines="none">
-          <ion-label> {{answer.descripcion}} </ion-label>
-        </ion-item>
-      </ion-item-sliding>
-    </ion-item-group>
-  </ion-list> -->
+  <app-spinner *ngIf="gettingData"></app-spinner>
 
-  <ion-list>
+  <ion-list *ngIf="!gettingData" inset="true">
+    <div *ngFor="let question of questions">
+      <ion-item
+        class="question"
+        (click)="toggleGroup(question)"
+        [ngClass]="{active: isGroupShown(question)}"
+      >
+        <ion-icon
+          slot="end"
+          [name]="isGroupShown(question) ? 'chevron-forward-outline' : 'chevron-down-outline'"
+        ></ion-icon>
+        &nbsp; {{question.descripcion}}
+      </ion-item>
+      <ion-item
+        class="answer"
+        *ngFor="let answer of question.Respuestas"
+        [hidden]="isGroupShown(question)"
+      >
+        {{answer.descripcion}}
+      </ion-item>
+    </div>
+  </ion-list>
+
+  <!-- <ion-list>
     <div *ngFor="let group of groups">
       <ion-item
         class="item-stable"
@@ -52,5 +61,5 @@
         {{item}}
       </ion-item>
     </div>
-  </ion-list>
+  </ion-list> -->
 </ion-content>

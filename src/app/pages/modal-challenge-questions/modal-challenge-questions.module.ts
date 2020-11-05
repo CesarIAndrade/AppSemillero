@@ -8,12 +8,15 @@ import { ModalChallengeQuestionsPageRoutingModule } from './modal-challenge-ques
 
 import { ModalChallengeQuestionsPage } from './modal-challenge-questions.page';
 
+import { ComponentsModule } from 'src/app/components/components.module'
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ModalChallengeQuestionsPageRoutingModule
+    ModalChallengeQuestionsPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [ModalChallengeQuestionsPage]
 })

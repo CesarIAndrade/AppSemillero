@@ -1,13 +1,12 @@
 <ion-split-pane contentId="content">
   <ion-menu contentId="content">
     <ion-content>
+      <img style="margin-left: 30%;" width="120px" height="120px" [src]="user.avatar" />
+      <ion-item >
+        <ion-label style="text-align: center">{{ user.names }}</ion-label>
+      </ion-item>
+
       <ion-list>
-        <ion-item style="margin-bottom: 5%" lines="none">
-          <ion-avatar slot="start">
-            <img [src]="user.avatar" />
-          </ion-avatar>
-          <ion-label>{{ user.names }}</ion-label>
-        </ion-item>
         <ion-menu-toggle
           auto-hide="false"
           *ngFor="let p of appPages; let i = index"
@@ -28,11 +27,7 @@
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle auto-hide="false">
-          <ion-item
-            routerDirection="root"
-            (click)="logout()"
-            lines="none"
-          >
+          <ion-item routerDirection="root" (click)="logout()" lines="none">
             <ion-icon
               slot="start"
               ios="log-out-outline"
