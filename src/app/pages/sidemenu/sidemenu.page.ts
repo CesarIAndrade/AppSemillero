@@ -28,7 +28,13 @@ export class SidemenuPage implements OnInit {
     });
   }
 
+<<<<<<< HEAD
   ngOnInit() {    
+=======
+  ngOnInit() {
+    console.log(this.router.url);
+    
+>>>>>>> 0ee3269971e0c29bf17f407a9a69f97d2cd28b7e
     this.setUserData();
     this.userSvc.refresh$.subscribe(() => {
       this.setUserData();
@@ -55,7 +61,11 @@ export class SidemenuPage implements OnInit {
     if (!user) {
       this.router.navigate(["/login"]);
     }
-    user.avatar = `../../../assets/avatars/${user.avatar}.png`;    
+    if (user.avatar != "N/A" ){
+      user.avatar = `../../../assets/avatars/${user.avatar}.png`;
+    }else{
+      user.avatar = `../../../assets/avatars/default.png`;
+    }
     user.names = `${user.nombres.split(" ")[0]} ${user.nombres.split(" ")[2]}`;
     this.user = user;
   }

@@ -44,13 +44,20 @@ export class ProfilePage implements OnInit {
 
   setUserData() {
     var user = JSON.parse(localStorage.getItem("user"));
+    /////////Luis Chichanda Locura/////////
+    if (user.avatar != "N/A" ){
+      user.avatar = `../../../assets/avatars/${user.avatar}.png`;
+    }else{
+      user.avatar = `../../../assets/avatars/default.png`;
+    }
+    ///////////////////////////////////////
     this.user = {
       name: user.nombres,
       username: user.apodo,
       document: user.cedula,
       phone: user.celular,
       mail: user.correo,
-      avatar: `../../../assets/avatars/${user.avatar}.png`
+      avatar: `${user.avatar}`
     };
   }
 }
