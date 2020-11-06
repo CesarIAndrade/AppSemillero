@@ -21,7 +21,7 @@ export class ModalActivityPage implements OnInit {
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem("user"));
     this.getSubjectChallenges();
-    this.subjectSvc.refresh$.subscribe(() => {
+    this.challengesSvc.refresh$.subscribe(() => {
       this.getSubjectChallenges();
     });
   }

@@ -1,7 +1,20 @@
-ion-list.colorLis{
-    border:2px solid var(--ion-color-primary);
-    border-radius: 10px;
-}
-ion-avatar {
-    border:1px solid var(--ion-color-primary);
+ion-slides {
+  height: 100%;
+  ion-slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    ion-item {
+      text-align: center;
+      ion-label {
+        font-size: 30px;
+        font-family: sans-serif;
+      }
+    }
+    .slide_img {
+      margin: 0 auto;
+      width: 50%;
+    }
+  }
 }

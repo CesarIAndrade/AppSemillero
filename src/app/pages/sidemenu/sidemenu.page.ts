@@ -28,13 +28,8 @@ export class SidemenuPage implements OnInit {
     });
   }
 
-<<<<<<< HEAD
-  ngOnInit() {    
-=======
   ngOnInit() {
     console.log(this.router.url);
-    
->>>>>>> 0ee3269971e0c29bf17f407a9a69f97d2cd28b7e
     this.setUserData();
     this.userSvc.refresh$.subscribe(() => {
       this.setUserData();

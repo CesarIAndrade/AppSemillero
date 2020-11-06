@@ -9,6 +9,7 @@ export const environment = {
 // export const apiUrl = "http://26.175.169.125:91/api/"; // jorge
 export const apiUrl = "http://26.188.217.110:91/api/"; // chichi
 export const laravelApiUrl = "http://26.155.20.209:8080/ApiApp/public/api/";
+// export const nodeApiUrl = "http://localhost:3000";
 
 /*
  * For easier debugging in development mode, you can import the following file

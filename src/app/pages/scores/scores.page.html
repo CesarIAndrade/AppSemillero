@@ -1,17 +1,14 @@
 <app-header></app-header>
 
-<ion-content class="background">
-  <ion-list inset="true" class="colorLis" mode="ios">
-    <ion-item
-      *ngFor="let card of cards"
-      (click)="presentModal(card)"
-      lines="none"
-    >
-      <ion-avatar slot="start">
-        <img [src]="card.imageRoute" />
-      </ion-avatar>
-      <ion-label>{{ card.name }} </ion-label>
-      <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
-    </ion-item>
-  </ion-list>
+<ion-content>
+  <ion-slides>
+    <ion-slide *ngFor="let card of cards" (click)="presentModal(card)">
+      <div class="slide">
+        <img class="slide_img" [src]="card.imageRoute" />
+        <ion-item lines="none">
+          <ion-label>{{ card.name }} </ion-label>
+        </ion-item>
+      </div>
+    </ion-slide>
+  </ion-slides>
 </ion-content>

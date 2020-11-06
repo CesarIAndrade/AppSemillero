@@ -1,35 +1,30 @@
-<ion-content class="backgroundPerfil">
-  <div class="profile-widget">
-    <!-- <img src="../../../assets/profile-banner.jpg" alt=""> -->
-    <ion-avatar  class="profile-avatar">
-      <img
-        [src]="user.avatar"
-        (click)="editAvatar()"
-      />
-    </ion-avatar>
-    <br>
-    <br>
-    <ion-chip mode="ios">
-      <ion-label>{{ user.name }}</ion-label>
-    </ion-chip>
-  </div>
+<ion-content>
   <ion-grid fixed>
     <ion-row>
       <ion-col size-lg="4" offset-lg="4">
-        <ion-card class="colorCard">
-          <ion-card-header>
-            <ion-card-title>Datos del usuario</ion-card-title>
-          </ion-card-header>
-          <ion-card-content mode="ios">
-            <div class="info">
-              <h2>Cédula</h2>
-              <ion-label class="estilo"> {{ user.document }} </ion-label>
-              <h2>Celular</h2>
-              <ion-label class="estilo"> {{ user.phone }} </ion-label>
-              <h2>Correo</h2>
-              <ion-label class="estilo"> {{ user.mail }} </ion-label>
-            </div>
-          </ion-card-content>
+        <div class="card_header">
+          <img [src]="user.avatar" (click)="editAvatar()" />
+          <ion-item lines="none">
+            <h2>{{ user.name }}</h2>
+          </ion-item>
+        </div>
+        <ion-card>
+          <ion-list>
+            <ion-item lines="none">
+              <ion-label>Cédula:</ion-label>
+              <p> {{ user.document }} </p>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label>Celular:</ion-label>
+              <p> {{ user.phone }} </p>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label>Correo:</ion-label>
+            </ion-item>
+            <ion-item lines="none">
+              <p> {{ user.mail }} </p>
+            </ion-item>
+          </ion-list>
         </ion-card>
       </ion-col>
     </ion-row>

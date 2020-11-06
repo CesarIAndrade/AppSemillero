@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable, EventEmitter } from "@angular/core";
-import { apiUrl, laravelApiUrl } from "src/environments/environment";
+import { laravelApiUrl } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
@@ -104,7 +104,6 @@ export class ChallengesService {
       .set("idRegistro", user)
       .set("descripcion", question)
       .set("respuestas", answers);
-    console.log(body);
     return new Promise((resolve, reject) => {
       this.http
         .post(laravelApiUrl + "crearPreguntaReto", body.toString(), {

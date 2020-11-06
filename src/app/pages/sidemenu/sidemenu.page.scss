@@ -49,10 +49,6 @@ ion-menu.md ion-item.selected ion-icon {
   color: var(--ion-color-secondary);
 }
 
-// ion-menu.md ion-item ion-icon {
-//   color: #fefeff;
-// }
-
 ion-menu.md ion-item ion-label {
   font-weight: 500;
 }
@@ -108,4 +104,25 @@ ion-note {
 
 ion-item.selected {
   --color: var(--ion-color-secondary);
+}
+
+ion-list-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+  img {
+    width: 120px;
+    height: 120px;
+    margin: 10px 0;
+  }
+  h4 {
+    font-weight: bold;
+  }
+}
+
+* {
+  font-family: sans-serif; 
 }
