@@ -98,15 +98,38 @@ export class ChallengesService {
     });
   }
 
-  createChallengeQuestion(challenge, user, question, answers) {
+  createChallengeQuestion(challenge, user, question, answers, correctAnswer) {
     const body = new HttpParams()
       .set("idReto", challenge)
       .set("idRegistro", user)
       .set("descripcion", question)
-      .set("respuestas", answers);
+      .set("respuestas", answers)
+      .set("correcta", correctAnswer);
+    console.log(correctAnswer);
     return new Promise((resolve, reject) => {
       this.http
         .post(laravelApiUrl + "crearPreguntaReto", body.toString(), {
+          headers: new HttpHeaders().set(
+            "Content-Type",
+            "application/x-www-form-urlencoded"
+          ),
+        })
+        .subscribe(
+          (res) => {
+            resolve(res);
+          },
+          (err) => {
+            reject(err);
+          }
+        );
+    });
+  }
+
+  changeQuestionAnswer(question, answer) {
+    const body = new HttpParams().set("", question).set("", answer);
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(laravelApiUrl + "", body.toString(), {
           headers: new HttpHeaders().set(
             "Content-Type",
             "application/x-www-form-urlencoded"

@@ -18,7 +18,11 @@ const routes: Routes = [
       import("./pages/sidemenu/sidemenu.module").then(
         (m) => m.SidemenuPageModule
       ),
+  },  {
+    path: 'modal-multiuse',
+    loadChildren: () => import('./pages/modal-multiuse/modal-multiuse.module').then( m => m.ModalMultiusePageModule)
   }
+
 ];
 
 @NgModule({

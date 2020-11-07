@@ -11,18 +11,40 @@ export class WwtbmPage implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem("user"));
-    console.log(this.user);
-    
     this.getStudentAssignedChallenges();
+    this.getStudentSubjects();
+
   }
 
   user: any;
+  subjects: any[] = [];
+  challenges: any[] = [];
+  gettingData = true;
 
   getStudentAssignedChallenges() {
     this.studentSvc
       .getStudentAssignedChallenges(this.user.idRegistro, "2")
-      .then((res) => {
-        console.log(res);
+      .then((res: any) => {
+        res.Success.map((challenge) => {
+          var subject = this.subjects.find(
+            (subject) => subject.DISTRO === parseInt(challenge.distribucion)
+          );
+          challenge.subject = subject.MATERIA;
+          this.challenges.push(challenge);
+        });
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        this.gettingData = false;
+      });
+  }
+
+  getStudentSubjects() {
+    this.studentSvc
+      .getStudentSubjects(this.user.cedula)
+      .then((res: any) => {    
+        this.subjects = res; 
+        this.gettingData = false;
       })
       .catch((err) => console.log(err));
   }

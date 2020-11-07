@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable, EventEmitter } from "@angular/core";
 import { apiUrl } from "src/environments/environment";
-import Echo  from "laravel-echo";
+// import Echo  from "laravel-echo";
 
 @Injectable({
   providedIn: "root",
@@ -9,17 +9,17 @@ import Echo  from "laravel-echo";
 export class UserService {
   constructor(private http: HttpClient) { }
 
-  echo = new Echo({
-    broadcaster: "pusher",
-    cluster: "mt1",
-    key: "public-key-123",
-    wsHost: "26.155.20.209",
-    wsPort: 8000,
-    disabledStates: true,
-    forceTLS: false,
-    useTLS: false,
-    enabledTransports: ['ws']
-  })
+  // echo = new Echo({
+  //   broadcaster: "pusher",
+  //   cluster: "mt1",
+  //   key: "public-key-123",
+  //   wsHost: "26.155.20.209",
+  //   wsPort: 8000,
+  //   disabledStates: true,
+  //   forceTLS: false,
+  //   useTLS: false,
+  //   enabledTransports: ['ws']
+  // })
 
   refresh$ = new EventEmitter();
 

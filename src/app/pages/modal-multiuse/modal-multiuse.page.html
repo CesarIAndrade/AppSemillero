@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> Nueva Pregunta </ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list inset="true">
+    <form [formGroup]="questionForm" (ngSubmit)="createQuestion()">
+      <ion-item>
+        <ion-input
+          formControlName="question"
+          placeholder="Pregunta"
+        ></ion-input>
+      </ion-item>
+      <ion-radio-group
+        [value]="correctAnswer"
+        [(ngModel)]="correctAnswer"
+        [ngModelOptions]="{standalone: true}"
+      >
+        <ion-item lines="none">
+          <ion-input
+            formControlName="answer_1"
+            placeholder="Respuesta #1"
+          ></ion-input>
+          <ion-radio value="0" slot="end"></ion-radio>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-input
+            formControlName="answer_2"
+            placeholder="Respuesta #2"
+          ></ion-input>
+          <ion-radio value="1" slot="end"></ion-radio>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-input
+            formControlName="answer_3"
+            placeholder="Respuesta #3"
+          ></ion-input>
+          <ion-radio value="2" slot="end"></ion-radio>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-input
+            formControlName="answer_4"
+            placeholder="Respuesta #4"
+          ></ion-input>
+          <ion-radio value="3" slot="end"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+      <ion-button type="submit" mode="ios" expand="block">Guardar</ion-button>
+    </form>
+  </ion-list>
+</ion-content>

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { AlertController, ModalController } from "@ionic/angular";
 import { ChallengesService } from "src/app/services/challenges.service";
+import { ModalMultiusePage } from "../modal-multiuse/modal-multiuse.page";
 
 @Component({
   selector: "app-modal-challenge-questions",
@@ -16,6 +17,10 @@ export class ModalChallengeQuestionsPage implements OnInit {
 
   ngOnInit() {
     this.getChallengeQuestions();
+    this.challengesSvc.refresh$.subscribe(() => {
+      this.questions = [];
+      this.getChallengeQuestions();
+    });
     this.user = JSON.parse(localStorage.getItem("user"));
   }
 
@@ -34,92 +39,78 @@ export class ModalChallengeQuestionsPage implements OnInit {
     this.challengesSvc
       .getChallengeQuestions(this.challenge.id)
       .then((res: any) => {
-        console.log(res);
         res.Success.map((question) => {
           question.show = true;
+          var correctAnswer = question.Respuestas.find(
+            (answer) => answer.esCorrecta == "1"
+          );
+          question.Respuestas.map((answer) => {
+            if (answer.esCorrecta == "1") {
+              answer.styles =
+                "  border-left: 2px solid var(--ion-color-success);";
+            }
+          });
+          const index = question.Respuestas.indexOf(correctAnswer);
+          question.correctAnswer = String(index);
           this.questions.push(question);
-        })
+        });
+        console.log(this.questions);
+
         this.gettingData = false;
       })
       .catch((err) => console.log(err))
       .finally(() => {
         this.gettingData = false;
-      })
+      });
   }
 
-  async createQuestion() {
-    var date = new Date().toJSON().split("T")[0];
-    const alert = await this.alertController.create({
-      header: "Crear Pregunta",
-      inputs: [
-        {
-          name: "question",
-          type: "text",
-          placeholder: "Pregunta",
-        },
-        {
-          name: "answer_1",
-          type: "text",
-          placeholder: "Respuesta #1",
-        },
-        {
-          name: "answer_2",
-          type: "text",
-          placeholder: "Respuesta #2",
-        },
-        {
-          name: "answer_3",
-          type: "text",
-          placeholder: "Respuesta #3",
-        },
-        {
-          name: "answer_4",
-          type: "text",
-          placeholder: "Respuesta #4",
-        }
-      ],
-      buttons: [
-        {
-          text: "Cancelar",
-          role: "cancel",
-        },
-        {
-          text: "Guardar",
-          handler: (alertData) => {
-            var answers = [
-              alertData.answer_1,
-              alertData.answer_2,
-              alertData.answer_3,
-              alertData.answer_4,
-            ];
-            this.createChallengeQuestion(alertData.question, answers)
-          },
-        },
-      ],
+  async openCreateChallengeQuestionModal() {
+    const modal = await this.modalController.create({
+      component: ModalMultiusePage,
+      componentProps: {
+        challenge: this.challenge,
+      },
     });
-    await alert.present();
-  }
-
-  createChallengeQuestion(question, answers) {
-    this.challengesSvc
-      .createChallengeQuestion(
-        this.challenge.id,
-        this.user.idRegistro,
-        question,
-        answers
-      )
-      .then((res: any) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
+    return await modal.present();
   }
 
   toggleGroup(group) {
     group.show = !group.show;
-  };
+  }
 
   isGroupShown(group) {
     return group.show;
-  };
+  }
 
+  convertIndexToString(i) {
+    return String(i);
+  }
+
+  async changeAnswer(question, answer, event) {
+    console.log(event);
+    
+    const alert = await this.alertController.create({
+      message: '¿Desea cambiar la respuesta?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('cancel');
+          }
+        }, {
+          text: 'Okay',
+          handler: () => {
+            this.challengesSvc.changeQuestionAnswer(question.id, answer.id)
+            .then(res => {
+              console.log(res);
+            }).catch((err) => console.log(err))
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 }

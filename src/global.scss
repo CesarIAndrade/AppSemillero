@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -24,3 +24,28 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.question_alert_checkbox {
+  position: absolute;
+  left: 40%;
+}
+
+.question_alert_checkbox_1 {
+    position: absolute;
+    top: 33%;
+}
+
+.question_alert_checkbox_2 {
+    position: absolute;
+    top: 73%;
+}
+
+.question_alert_checkbox_3 {
+    position: absolute;
+    top: 73%;
+}
+
+.question_alert_checkbox_4 {
+    position: absolute;
+    top: 73%;
+}

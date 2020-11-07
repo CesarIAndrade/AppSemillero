@@ -11,16 +11,19 @@
 
 <ion-content>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="createQuestion()">
+    <ion-fab-button (click)="openCreateChallengeQuestionModal()">
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
   <app-spinner *ngIf="gettingData"></app-spinner>
 
   <ion-list *ngIf="!gettingData" inset="true">
-    <div *ngFor="let question of questions">
+    <ion-item-sliding
+      style="margin-bottom: 5px"
+      *ngFor="let question of questions"
+    >
       <ion-item
-        class="question"
+        style="border-left: 3px solid var(--ion-color-primary)"
         (click)="toggleGroup(question)"
         [ngClass]="{active: isGroupShown(question)}"
       >
@@ -30,36 +33,29 @@
         ></ion-icon>
         &nbsp; {{question.descripcion}}
       </ion-item>
-      <ion-item
-        class="answer"
-        *ngFor="let answer of question.Respuestas"
-        [hidden]="isGroupShown(question)"
-      >
-        {{answer.descripcion}}
-      </ion-item>
-    </div>
+      <ion-item-options side="start">
+        <ion-item-option color="danger"> Eliminar </ion-item-option>
+      </ion-item-options>
+      <ion-item-options>
+        <ion-item-option color="warning"> Editar </ion-item-option>
+      </ion-item-options>
+      <ion-radio-group [value]="question.correctAnswer" mode="ios">
+        <span *ngFor="let answer of question.Respuestas; index as i">
+          <ion-item
+            lines="none"
+            class="answer"
+            [hidden]="isGroupShown(question)"
+            [style]="answer.styles"
+          >
+            <ion-label> {{answer.descripcion}}</ion-label>
+            <ion-radio
+              slot="start"
+              (click)="changeAnswer(question, answer, $event)"
+              [value]="convertIndexToString(i)"
+            ></ion-radio>
+          </ion-item>
+        </span>
+      </ion-radio-group>
+    </ion-item-sliding>
   </ion-list>
-
-  <!-- <ion-list>
-    <div *ngFor="let group of groups">
-      <ion-item
-        class="item-stable"
-        (click)="toggleGroup(group)"
-        [ngClass]="{active: isGroupShown(group)}"
-      >
-        <i
-          class="icon"
-          [ngClass]="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"
-        ></i>
-        &nbsp; Group {{group.name}}
-      </ion-item>
-      <ion-item
-        class="item-accordion"
-        *ngFor="let item of group.items"
-        [hidden]="isGroupShown(group)"
-      >
-        {{item}}
-      </ion-item>
-    </div>
-  </ion-list> -->
 </ion-content>
