@@ -11,7 +11,7 @@
 
 <ion-content>
   <ion-list inset="true">
-    <form [formGroup]="questionForm" (ngSubmit)="createQuestion()">
+    <form [formGroup]="questionForm" (ngSubmit)="handleSubmit()">
       <ion-item>
         <ion-input
           formControlName="question"

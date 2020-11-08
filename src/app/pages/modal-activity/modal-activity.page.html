@@ -11,7 +11,7 @@
 
 <ion-content  *ngIf="activity == 2"ñ>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="createChallenge()">
+    <ion-fab-button (click)="createOrEditChallenge()">
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
@@ -26,7 +26,7 @@
         class="challenge"
         *ngFor="let _challenge of challenge.challenges"
       >
-        <ion-item (click)="openChanllengeQuestionsModal(_challenge)">
+        <ion-item (click)="presentActionSheet(_challenge)">
           <ion-label>
             <h2>{{ _challenge.tema }}</h2>
             <h3>
@@ -36,30 +36,6 @@
             <p>{{ _challenge.Estudiantes.length }} estudiantes asignados</p>
           </ion-label>
         </ion-item>
-        <ion-item-options side="start" *ngIf="challenge.state == '1'">
-          <ion-item-option
-            color="danger"
-            (click)="changeChallengeState(_challenge)"
-          >
-            Cerrar
-          </ion-item-option>
-        </ion-item-options>
-        <ion-item-options side="start" *ngIf="challenge.state == '0'">
-          <ion-item-option
-            color="success"
-            (click)="changeChallengeState(_challenge)"
-          >
-            Habilitar
-          </ion-item-option>
-        </ion-item-options>
-        <ion-item-options>
-          <ion-item-option
-            (click)="openSubjectStudentsModal(_challenge)"
-            color="warning"
-          >
-            Enviar
-          </ion-item-option>
-        </ion-item-options>
       </ion-item-sliding>
     </ion-item-group>
   </ion-list>

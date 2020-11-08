@@ -1,5 +1,9 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { AlertController, ModalController } from "@ionic/angular";
+import {
+  ActionSheetController,
+  AlertController,
+  ModalController,
+} from "@ionic/angular";
 import { ChallengesService } from "src/app/services/challenges.service";
 import { SubjectService } from "src/app/services/subject.service";
 import { ModalStudentsPage } from "../modal-students/modal-students.page";
@@ -15,7 +19,8 @@ export class ModalActivityPage implements OnInit {
     private modalController: ModalController,
     private alertController: AlertController,
     private subjectSvc: SubjectService,
-    private challengesSvc: ChallengesService
+    private challengesSvc: ChallengesService,
+    private actionSheetController: ActionSheetController
   ) {}
 
   ngOnInit() {
@@ -38,8 +43,70 @@ export class ModalActivityPage implements OnInit {
     });
   }
 
-  async createChallenge() {
-    var date = new Date().toJSON().split("T")[0];
+  async presentActionSheet(challenge) {
+    var state: string;
+    var stateIcon: string;
+    if(challenge.estado == "1") {
+      state = "Deshabilitar";
+      stateIcon = "eye-off-outline";
+    } else {
+      state = "Habilitar";
+      stateIcon = "eye-outline";
+    }
+    const actionSheet = await this.actionSheetController.create({
+      header: "Albums",
+      cssClass: "my-custom-class",
+      buttons: [
+        {
+          text: "Ver preguntas",
+          icon: "list-outline",
+          handler: () => {
+            this.openChanllengeQuestionsModal(challenge);
+          },
+        },
+        {
+          text: "Modificar",
+          icon: "settings-outline",
+          handler: () => {
+            this.createOrEditChallenge(challenge);
+          },
+        },
+        {
+          text: "Asignar reto",
+          icon: "paper-plane-outline",
+          handler: () => {
+            this.openSubjectStudentsModal(challenge);
+          },
+        },
+        {
+          text: state,
+          icon: stateIcon,
+          handler: () => {
+            this.changeChallengeState(challenge);
+          },
+        },
+        {
+          text: "Cancel",
+          icon: "close",
+          role: "cancel",
+          handler: () => {
+            console.log("Cancel clicked");
+          },
+        },
+      ],
+    });
+    await actionSheet.present();
+  }
+
+  async createOrEditChallenge(challenge) {
+    let date;
+    let handlerSubmit;
+    if (challenge) {
+      date = challenge.fecha_creacion.split(" ")[0];
+      handlerSubmit = "edit";
+    } else {
+      date = new Date().toJSON().split("T")[0];
+    }
     const alert = await this.alertController.create({
       header: "Crear reto",
       inputs: [
@@ -47,21 +114,25 @@ export class ModalActivityPage implements OnInit {
           name: "topic",
           type: "text",
           placeholder: "Tema",
+          value: challenge.tema,
         },
         {
           name: "description",
           type: "text",
           placeholder: "Descripción",
+          value: challenge.descripcion,
         },
         {
           name: "points",
           type: "number",
           placeholder: "Puntos",
+          value: challenge.puntos,
         },
         {
           name: "time",
           type: "number",
           placeholder: "Tiempo Límite",
+          value: challenge.tiempoSegundos,
         },
         {
           name: "limitDate",
@@ -78,18 +149,9 @@ export class ModalActivityPage implements OnInit {
         {
           text: "Guardar",
           handler: (alertData) => {
-            var challenge = {
-              user: this.user.idRegistro,
-              activity: this.activity,
-              description: alertData.description,
-              topic: alertData.topic,
-              points: alertData.points,
-              time: alertData.time,
-              subject: this.subject.id,
-              students: "",
-              limitDate: alertData.limitDate,
-            };
-            this.createSubjectChallenge(challenge);
+            handlerSubmit == "edit"
+              ? this.editSubjectChallenge(alertData, challenge.id)
+              : this.createSubjectChallenge(alertData);
           },
         },
       ],
@@ -97,7 +159,17 @@ export class ModalActivityPage implements OnInit {
     await alert.present();
   }
 
-  createSubjectChallenge(challenge) {
+  createSubjectChallenge(alertData) {
+    var challenge = {
+      user: this.user.idRegistro,
+      activity: this.activity,
+      description: alertData.description,
+      topic: alertData.topic,
+      points: alertData.points,
+      time: alertData.time,
+      subject: this.subject.id,
+      limitDate: alertData.limitDate,
+    };
     this.subjectSvc
       .createSubjectChallenge(challenge)
       .then(() => {
@@ -169,5 +241,21 @@ export class ModalActivityPage implements OnInit {
     return await modal.present();
   }
 
-
+  editSubjectChallenge(alertData, challengeId) {
+    var challenge = {
+      id: challengeId,
+      description: alertData.description,
+      topic: alertData.topic,
+      points: alertData.points,
+      time: alertData.time,
+      subject: this.subject.id,
+      limitDate: alertData.limitDate,
+    };
+    this.subjectSvc
+      .editSubjectChallenge(challenge)
+      .then(() => {
+        this.getSubjectChallenges();
+      })
+      .catch((err) => console.log(err));
+  }
 }

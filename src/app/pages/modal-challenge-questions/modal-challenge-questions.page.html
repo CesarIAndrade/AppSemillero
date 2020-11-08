@@ -34,12 +34,16 @@
         &nbsp; {{question.descripcion}}
       </ion-item>
       <ion-item-options side="start">
-        <ion-item-option color="danger"> Eliminar </ion-item-option>
+        <ion-item-option (click)="deleteQuestionAnswer(question.id)" color="danger"> Eliminar </ion-item-option>
       </ion-item-options>
       <ion-item-options>
-        <ion-item-option color="warning"> Editar </ion-item-option>
+        <ion-item-option (click)="editChallengeQuestion(question)" color="warning"> Editar </ion-item-option>
       </ion-item-options>
-      <ion-radio-group [value]="question.correctAnswer" mode="ios">
+      <ion-radio-group
+        #ionRadioGroup
+        [value]="question.correctAnswer"
+        mode="ios"
+      >
         <span *ngFor="let answer of question.Respuestas; index as i">
           <ion-item
             lines="none"
@@ -50,8 +54,8 @@
             <ion-label> {{answer.descripcion}}</ion-label>
             <ion-radio
               slot="start"
-              (click)="changeAnswer(question, answer, $event)"
               [value]="convertIndexToString(i)"
+              (click)="changeQuestionAnswer(question, answer)"
             ></ion-radio>
           </ion-item>
         </span>

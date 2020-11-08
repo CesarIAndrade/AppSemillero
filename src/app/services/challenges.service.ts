@@ -98,14 +98,13 @@ export class ChallengesService {
     });
   }
 
-  createChallengeQuestion(challenge, user, question, answers, correctAnswer) {
+  createChallengeQuestion(question) {
     const body = new HttpParams()
-      .set("idReto", challenge)
-      .set("idRegistro", user)
-      .set("descripcion", question)
-      .set("respuestas", answers)
-      .set("correcta", correctAnswer);
-    console.log(correctAnswer);
+      .set("idReto", question.challenge)
+      .set("idRegistro", question.user)
+      .set("descripcion", question.question)
+      .set("respuestas", question.answers)
+      .set("correcta", question.correctAnswer);
     return new Promise((resolve, reject) => {
       this.http
         .post(laravelApiUrl + "crearPreguntaReto", body.toString(), {
@@ -126,10 +125,60 @@ export class ChallengesService {
   }
 
   changeQuestionAnswer(question, answer) {
-    const body = new HttpParams().set("", question).set("", answer);
+    const body = new HttpParams()
+      .set("idPregunta", question)
+      .set("idRespuesta", answer);
     return new Promise((resolve, reject) => {
       this.http
-        .post(laravelApiUrl + "", body.toString(), {
+        .post(laravelApiUrl + "modRespCorrecta", body.toString(), {
+          headers: new HttpHeaders().set(
+            "Content-Type",
+            "application/x-www-form-urlencoded"
+          ),
+        })
+        .subscribe(
+          (res) => {
+            resolve(res);
+          },
+          (err) => {
+            reject(err);
+          }
+        );
+    });
+  }
+
+  editChallengeQuestion(question) {
+    const body = new HttpParams()
+      .set("idPregunta", question.id)
+      .set("idReto", question.challenge)
+      .set("idRegistro", question.user)
+      .set("descripcion", question.question)
+      .set("respuestas", question.answers)
+      .set("correcta", question.correctAnswer);
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(laravelApiUrl + "modPregResp", body.toString(), {
+          headers: new HttpHeaders().set(
+            "Content-Type",
+            "application/x-www-form-urlencoded"
+          ),
+        })
+        .subscribe(
+          (res) => {
+            resolve(res);
+          },
+          (err) => {
+            reject(err);
+          }
+        );
+    });
+  }
+
+  deleteQuestionAnswer(question) {
+    const body = new HttpParams().set("idPregunta", question);
+    return new Promise((resolve, reject) => {
+      this.http
+        .post(laravelApiUrl + "eliminPreg", body.toString(), {
           headers: new HttpHeaders().set(
             "Content-Type",
             "application/x-www-form-urlencoded"
