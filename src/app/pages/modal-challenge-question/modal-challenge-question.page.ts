@@ -4,11 +4,11 @@ import { AlertController, ModalController } from "@ionic/angular";
 import { ChallengesService } from "src/app/services/challenges.service";
 
 @Component({
-  selector: "app-modal-multiuse",
-  templateUrl: "./modal-multiuse.page.html",
-  styleUrls: ["./modal-multiuse.page.scss"],
+  selector: "app-modal-challenge-question",
+  templateUrl: "./modal-challenge-question.html",
+  styleUrls: ["./modal-challenge-question.scss"],
 })
-export class ModalMultiusePage implements OnInit {
+export class ModalChallengeQuestionPage implements OnInit {
   constructor(
     private modalController: ModalController,
     private challengesSvc: ChallengesService,

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
 import { AlertController, ModalController } from "@ionic/angular";
 import { ChallengesService } from "src/app/services/challenges.service";
-import { ModalMultiusePage } from "../modal-multiuse/modal-multiuse.page";
+import { ModalChallengeQuestionPage } from "src/app/pages/modal-challenge-question/modal-challenge-question.page";
 
 @Component({
   selector: "app-modal-challenge-questions",
@@ -65,7 +65,7 @@ export class ModalChallengeQuestionsPage implements OnInit {
 
   async openCreateChallengeQuestionModal(question) {
     const modal = await this.modalController.create({
-      component: ModalMultiusePage,
+      component: ModalChallengeQuestionPage,
       componentProps: {
         challenge: this.challenge,
         question,

@@ -2,16 +2,18 @@
 
 <ion-content>
   <app-spinner *ngIf="gettingData"></app-spinner>
-
   <ion-list *ngIf="!gettingData" inset="true">
     <ion-item-group *ngFor="let subject of subjects">
       <ion-item-divider sticky>
         <ion-label> {{subject.MATERIA}} </ion-label>
       </ion-item-divider>
-      <div
-        *ngFor="let challenge of challenges"
-      >
-        <ion-item *ngIf="challenge.subject == subject.MATERIA" lines="none" class="challenge">
+      <div *ngFor="let challenge of challenges">
+        <ion-item
+          *ngIf="challenge.subject == subject.MATERIA"
+          lines="none"
+          class="challenge"
+          (click)="openModalChallenge(challenge)"
+        >
           <ion-label>
             <h2>{{ challenge.tema }}</h2>
             <h3>

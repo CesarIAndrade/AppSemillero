@@ -4,18 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ModalMultiusePageRoutingModule } from './modal-multiuse-routing.module';
+import { ModalChallengeQuestionPageRoutingModule } from './modal-challenge-question-routing.module';
 
-import { ModalMultiusePage } from './modal-multiuse.page';
+import { ModalChallengeQuestionPage } from './modal-challenge-question.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ModalMultiusePageRoutingModule,
+    ModalChallengeQuestionPageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [ModalMultiusePage]
+  declarations: [ModalChallengeQuestionPage]
 })
 export class ModalMultiusePageModule {}

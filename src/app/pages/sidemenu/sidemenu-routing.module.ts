@@ -92,6 +92,20 @@ const routes: Routes = [
             "../modal-challenge-questions/modal-challenge-questions.module"
           ).then((m) => m.ModalChallengeQuestionsPageModule),
       },
+      {
+        path: "modal-wwtbm",
+        loadChildren: () =>
+          import("../modal-wwtbm/modal-wwtbm.module").then(
+            (m) => m.ModalWwtbmPageModule
+          ),
+      },
+      {
+        path: "modal-challenge-question",
+        loadChildren: () =>
+          import(
+            "../modal-challenge-question/modal-challenge-question.module"
+          ).then((m) => m.ModalMultiusePageModule),
+      },
     ],
   },
 ];

@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> {{ challenge.descripcion }} </ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides>
+    <ion-slide *ngFor="let question of questions">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            <ion-label>{{ question.descripcion }} </ion-label>
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list class="answers">
+            <span *ngFor="let answer of question.Respuestas">
+              <ion-item lines="none" (click)="handleAnswer(answer, question)">
+                <p>{{ answer.descripcion }}</p>
+                <ion-icon
+                  slot="start"
+                  [name]="answer.icon"
+                  *ngIf="answer.clicked"
+                  [style]="answer.iconStyle"
+                ></ion-icon>
+              </ion-item>
+            </span>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <h1>{{ puntaje }}</h1>
+      <ion-button (click)="getResult()">
+        calcular
+      </ion-button>
+
+
+    </ion-slide>
+  </ion-slides>
+</ion-content>

@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ModalMultiusePage } from './modal-multiuse.page';
+import { ModalWwtbmPage } from './modal-wwtbm.page';
 
-describe('ModalMultiusePage', () => {
-  let component: ModalMultiusePage;
-  let fixture: ComponentFixture<ModalMultiusePage>;
+describe('ModalWwtbmPage', () => {
+  let component: ModalWwtbmPage;
+  let fixture: ComponentFixture<ModalWwtbmPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalMultiusePage ],
+      declarations: [ ModalWwtbmPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ModalMultiusePage);
+    fixture = TestBed.createComponent(ModalWwtbmPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
