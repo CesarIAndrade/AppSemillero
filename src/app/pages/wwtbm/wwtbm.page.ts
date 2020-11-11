@@ -28,7 +28,6 @@ export class WwtbmPage implements OnInit {
     this.studentSvc
       .getStudentAssignedChallenges(this.user.idRegistro, "2")
       .then((res: any) => {
-        console.log(res);
         res.Success.map((challenge) => {
           var subject = this.subjects.find(
             (subject) => subject.DISTRO === parseInt(challenge.distribucion)

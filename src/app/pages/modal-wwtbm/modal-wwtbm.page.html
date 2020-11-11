@@ -2,9 +2,12 @@
   <ion-toolbar>
     <ion-title> {{ challenge.descripcion }} </ion-title>
     <ion-buttons slot="secondary">
-      <ion-button (click)="dismiss()">
-        <ion-icon slot="icon-only" name="close-circle-outline"></ion-icon>
-      </ion-button>
+      <div id="countdown">
+        <div id="countdown-number" #countdownNumber></div>
+        <svg>
+          <circle r="18" cx="20" cy="20"></circle>
+        </svg>
+      </div>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -12,7 +15,7 @@
 <ion-content>
   <ion-slides>
     <ion-slide *ngFor="let question of questions">
-      <ion-card>
+      <div>
         <ion-card-header>
           <ion-card-title>
             <ion-label>{{ question.descripcion }} </ion-label>
@@ -33,15 +36,18 @@
             </span>
           </ion-list>
         </ion-card-content>
-      </ion-card>
+      </div>
     </ion-slide>
     <ion-slide>
-      <h1>{{ puntaje }}</h1>
-      <ion-button (click)="getResult()">
-        calcular
-      </ion-button>
-
-
+      <ion-list>
+        <h1 *ngIf="calculateClicked">{{ points }}</h1>
+        <div class="actions">
+          <ion-button (click)="getResult()"> Calcular </ion-button>
+          <ion-button (click)="dismiss()" color="secondary">
+            Terminar
+          </ion-button>
+        </div>
+      </ion-list>
     </ion-slide>
   </ion-slides>
 </ion-content>

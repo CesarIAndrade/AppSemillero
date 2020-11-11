@@ -46,7 +46,7 @@ export class ModalActivityPage implements OnInit {
   async presentActionSheet(challenge) {
     var state: string;
     var stateIcon: string;
-    if(challenge.estado == "1") {
+    if (challenge.estado == "1") {
       state = "Deshabilitar";
       stateIcon = "eye-off-outline";
     } else {
@@ -101,6 +101,8 @@ export class ModalActivityPage implements OnInit {
   async createOrEditChallenge(challenge) {
     let date;
     let handlerSubmit;
+    console.log(challenge);
+
     if (challenge) {
       date = challenge.fecha_creacion.split(" ")[0];
       handlerSubmit = "edit";
@@ -114,25 +116,25 @@ export class ModalActivityPage implements OnInit {
           name: "topic",
           type: "text",
           placeholder: "Tema",
-          value: challenge.tema,
+          value: challenge ? challenge.tema : "",
         },
         {
           name: "description",
           type: "text",
           placeholder: "Descripción",
-          value: challenge.descripcion,
+          value: challenge ? challenge.descripcion : "",
         },
         {
           name: "points",
           type: "number",
           placeholder: "Puntos",
-          value: challenge.puntos,
+          value: challenge ? challenge.puntos : "",
         },
         {
           name: "time",
           type: "number",
           placeholder: "Tiempo Límite",
-          value: challenge.tiempoSegundos,
+          value: challenge ? challenge.tiempoSegundos : "",
         },
         {
           name: "limitDate",

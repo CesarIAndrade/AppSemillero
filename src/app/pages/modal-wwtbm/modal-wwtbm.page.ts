@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+} from "@angular/core";
 import { ModalController } from "@ionic/angular";
 
 @Component({
@@ -6,20 +13,47 @@ import { ModalController } from "@ionic/angular";
   templateUrl: "./modal-wwtbm.page.html",
   styleUrls: ["./modal-wwtbm.page.scss"],
 })
-export class ModalWwtbmPage implements OnInit {
+export class ModalWwtbmPage implements OnInit, AfterViewInit {
   constructor(private modalController: ModalController) {}
 
   ngOnInit() {
     this.questions = this.challenge.Preguntas;
-    console.log(this.challenge);
+    this.challengeTime = parseInt(this.challenge.tiempoSegundos);
+  }
+
+  ngAfterViewInit() {
+    this.timer();
+  }
+
+  timer() {
+    var countdown = 5;
+    this.countdownNumber.nativeElement.innerHTML = countdown;
+    var _setInterval = setInterval(() => {
+      countdown = --countdown;
+      this.countdownNumber.nativeElement.innerHTML = countdown;
+      if (countdown === 0) {
+        clearInterval(_setInterval)
+        this.dismiss();
+      }
+    }, 1000);
   }
 
   @Input() challenge: any;
   questions: any[] = [];
+  points: number = 0;
+  calculateClicked = false;
+  challengeTime: number = 0;
+  @ViewChild("countdownNumber", { read: ElementRef })
+  countdownNumber: ElementRef;
 
   dismiss() {
+    this.questions.map((question) => {
+      question.Respuestas.map((answer) => {
+        answer.clicked = false;
+      });
+    });
     this.modalController.dismiss({
-      dismissed: true,
+      role: "destructive",
     });
   }
 
@@ -37,15 +71,18 @@ export class ModalWwtbmPage implements OnInit {
     question.Respuestas.map((answer) => (answer.clicked = true));
   }
 
-  puntaje: number;
-
   getResult() {
     var correctAnswers = 0;
     this.questions.map((question) => {
-      if(question.validate === "1") {
+      if (question.validate === "1") {
         correctAnswers = correctAnswers + 1;
       }
-    })
-    this.puntaje = (parseInt(this.challenge.puntos) / this.questions.length) * correctAnswers;
+    });
+    if (correctAnswers != 0) {
+      this.calculateClicked = true;
+      this.points =
+        (parseInt(this.challenge.puntos) / this.questions.length) *
+        correctAnswers;
+    }
   }
 }

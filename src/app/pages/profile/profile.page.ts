@@ -32,7 +32,7 @@ export class ProfilePage implements OnInit {
     avatar: ""
   };
 
-  @ViewChild("imageInput") private imageInput: ElementRef;
+  @ViewChild("imageInput") imageInput: ElementRef;
 
   async editAvatar() {
     const popover = await this.popoverController.create({
@@ -44,13 +44,11 @@ export class ProfilePage implements OnInit {
 
   setUserData() {
     var user = JSON.parse(localStorage.getItem("user"));
-    /////////Luis Chichanda Locura/////////
     if (user.avatar != "N/A" ){
       user.avatar = `../../../assets/avatars/${user.avatar}.png`;
     }else{
       user.avatar = `../../../assets/avatars/default.png`;
     }
-    ///////////////////////////////////////
     this.user = {
       name: user.nombres,
       username: user.apodo,
