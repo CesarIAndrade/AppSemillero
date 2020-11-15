@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content  *ngIf="activity == 2"ñ>
+<ion-content *ngIf="activity == 2" ñ>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="createOrEditChallenge()">
       <ion-icon name="add-outline"></ion-icon>
@@ -29,10 +29,8 @@
         <ion-item (click)="presentActionSheet(_challenge)">
           <ion-label>
             <h2>{{ _challenge.tema }}</h2>
-            <h3>
-              {{ _challenge.puntos }} puntos - {{ _challenge.tiempoSegundos }}
-              segundos
-            </h3>
+            <p>{{ _challenge.tiempoSegundos }} minutos</p>
+            <p>Fecha límite {{ _challenge.fecha_fin }}</p>
             <p>{{ _challenge.Estudiantes.length }} estudiantes asignados</p>
           </ion-label>
         </ion-item>

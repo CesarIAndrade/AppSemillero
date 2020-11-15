@@ -13,41 +13,5 @@
 </ion-header>
 
 <ion-content>
-  <ion-slides>
-    <ion-slide *ngFor="let question of questions">
-      <div>
-        <ion-card-header>
-          <ion-card-title>
-            <ion-label>{{ question.descripcion }} </ion-label>
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-list class="answers">
-            <span *ngFor="let answer of question.Respuestas">
-              <ion-item lines="none" (click)="handleAnswer(answer, question)">
-                <p>{{ answer.descripcion }}</p>
-                <ion-icon
-                  slot="start"
-                  [name]="answer.icon"
-                  *ngIf="answer.clicked"
-                  [style]="answer.iconStyle"
-                ></ion-icon>
-              </ion-item>
-            </span>
-          </ion-list>
-        </ion-card-content>
-      </div>
-    </ion-slide>
-    <ion-slide>
-      <ion-list>
-        <h1 *ngIf="calculateClicked">{{ points }}</h1>
-        <div class="actions">
-          <ion-button (click)="getResult()"> Calcular </ion-button>
-          <ion-button (click)="dismiss()" color="secondary">
-            Terminar
-          </ion-button>
-        </div>
-      </ion-list>
-    </ion-slide>
-  </ion-slides>
+  <div #content></div>
 </ion-content>

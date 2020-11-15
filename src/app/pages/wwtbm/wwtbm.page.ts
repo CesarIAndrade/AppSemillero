@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ModalController } from "@ionic/angular";
+import { AlertController, ModalController } from "@ionic/angular";
 import { StudentService } from "src/app/services/student.service";
 import { ModalWwtbmPage } from "src/app/pages/modal-wwtbm/modal-wwtbm.page";
 
@@ -11,7 +11,8 @@ import { ModalWwtbmPage } from "src/app/pages/modal-wwtbm/modal-wwtbm.page";
 export class WwtbmPage implements OnInit {
   constructor(
     private studentSvc: StudentService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -54,12 +55,20 @@ export class WwtbmPage implements OnInit {
   }
 
   async openModalChallenge(challenge) {
-    const modal = await this.modalController.create({
-      component: ModalWwtbmPage,
-      componentProps: {
-        challenge: challenge,
-      },
-    });
-    return await modal.present();
+    if (challenge.numeroIntentos === challenge.numeroIntentosRestantes) {
+      const alert = await this.alertController.create({
+        header: "Número máximo de intentos alcanzados",
+        buttons: ["OK"],
+      });
+      await alert.present();
+    } else {
+      const modal = await this.modalController.create({
+        component: ModalWwtbmPage,
+        componentProps: {
+          challenge: challenge,
+        },
+      });
+      return await modal.present();
+    }
   }
 }

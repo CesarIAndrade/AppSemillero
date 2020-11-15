@@ -99,10 +99,9 @@ export class ModalActivityPage implements OnInit {
   }
 
   async createOrEditChallenge(challenge) {
+    console.log(challenge);
     let date;
     let handlerSubmit;
-    console.log(challenge);
-
     if (challenge) {
       date = challenge.fecha_creacion.split(" ")[0];
       handlerSubmit = "edit";
@@ -125,15 +124,21 @@ export class ModalActivityPage implements OnInit {
           value: challenge ? challenge.descripcion : "",
         },
         {
-          name: "points",
+          name: "maxAttempts",
           type: "number",
-          placeholder: "Puntos",
-          value: challenge ? challenge.puntos : "",
+          placeholder: "# máximo de intentos",
+          value: challenge ? challenge.numeroIntentos : "",
+        },
+        {
+          name: "maxQuestions",
+          type: "number",
+          placeholder: "# máximo de de preguntas",
+          value: challenge ? challenge.numeroPreguntas : "",
         },
         {
           name: "time",
           type: "number",
-          placeholder: "Tiempo Límite",
+          placeholder: "Tiempo límite minutos",
           value: challenge ? challenge.tiempoSegundos : "",
         },
         {
@@ -167,10 +172,11 @@ export class ModalActivityPage implements OnInit {
       activity: this.activity,
       description: alertData.description,
       topic: alertData.topic,
-      points: alertData.points,
+      maxAttempts: alertData.maxAttempts,
+      maxQuestions: alertData.maxQuestions,
       time: alertData.time,
       subject: this.subject.id,
-      limitDate: alertData.limitDate,
+      limitDate: alertData.limitDate
     };
     this.subjectSvc
       .createSubjectChallenge(challenge)
@@ -184,6 +190,7 @@ export class ModalActivityPage implements OnInit {
     this.subjectSvc
       .getSubjectChallenges(this.user.idRegistro, this.subject.id)
       .then((res: any) => {
+        console.log(res);
         var enabledChallenges = [];
         var disabledChallenges = [];
         res.Success.map((challenge) => {
@@ -248,10 +255,11 @@ export class ModalActivityPage implements OnInit {
       id: challengeId,
       description: alertData.description,
       topic: alertData.topic,
-      points: alertData.points,
+      maxAttempts: alertData.maxAttempts,
+      maxQuestions: alertData.maxQuestions,
       time: alertData.time,
       subject: this.subject.id,
-      limitDate: alertData.limitDate,
+      limitDate: alertData.limitDate
     };
     this.subjectSvc
       .editSubjectChallenge(challenge)

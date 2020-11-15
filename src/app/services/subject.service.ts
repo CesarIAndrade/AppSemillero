@@ -72,7 +72,8 @@ export class SubjectService {
       .set("idTipoReto", challenge.activity)
       .set("descripcion", challenge.description)
       .set("tema", challenge.topic)
-      .set("puntos", challenge.points)
+      .set("numeroIntentos", challenge.maxAttempts)
+      .set("numeroPreguntas", challenge.maxQuestions)
       .set("tiempoSegundos", challenge.time)
       .set("distribucion", challenge.subject)
       .set("fechaFin", challenge.limitDate);
@@ -113,10 +114,13 @@ export class SubjectService {
       .set("idReto", challenge.id)
       .set("descripcion", challenge.description)
       .set("tema", challenge.topic)
-      .set("puntos", challenge.points)
+      .set("numeroIntentos", challenge.maxAttempts)
+      .set("numeroPreguntas", challenge.maxQuestions)
       .set("tiempoSegundos", challenge.time)
       .set("distribucion", challenge.subject)
       .set("fechaFin", challenge.limitDate);
+    console.log(body);
+    
     return new Promise((resolve, reject) => {
       this.http
         .post(laravelApiUrl + "modificarReto", body.toString(), {

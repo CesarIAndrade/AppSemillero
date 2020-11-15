@@ -16,10 +16,9 @@
         >
           <ion-label>
             <h2>{{ challenge.tema }}</h2>
-            <h3>
-              {{ challenge.puntos }} puntos - {{ challenge.tiempoSegundos }}
-              segundos
-            </h3>
+            <h3>{{ challenge.tiempoSegundos }} minutos</h3>
+            <p>Fecha límite {{ challenge.fecha_fin }}</p>
+            <p style="float: right;">({{ challenge.numeroIntentosRestantes }}/{{ challenge.numeroIntentos }})</p>
           </ion-label>
         </ion-item>
       </div>
