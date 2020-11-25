@@ -8,8 +8,23 @@
     padding-left: 5px;
 }
 
-ion-list {
-    margin: 0;
-    padding: 0;
-	background-color: rgba(0, 0, 0, 0);
+.own_comment {
+    margin: 10px 0;
+    border-right: 2px solid var(--ion-color-danger);
+    padding-left: 5px;
+    float: right;
 }
+
+div {
+    padding: 1px;
+}
+
+div p {
+    margin: 10px;
+}
+
+p {
+    font-size: 12px;
+}
+
+

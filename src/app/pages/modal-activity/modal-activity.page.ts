@@ -8,6 +8,8 @@ import { ChallengesService } from "src/app/services/challenges.service";
 import { SubjectService } from "src/app/services/subject.service";
 import { ModalStudentsPage } from "../modal-students/modal-students.page";
 import { ModalChallengeQuestionsPage } from "../modal-challenge-questions/modal-challenge-questions.page";
+import { WwtbmService } from "src/app/services/wwtbm.service";
+import { HangedService } from "src/app/services/hanged.service";
 
 @Component({
   selector: "app-modal-activity",
@@ -20,7 +22,9 @@ export class ModalActivityPage implements OnInit {
     private alertController: AlertController,
     private subjectSvc: SubjectService,
     private challengesSvc: ChallengesService,
-    private actionSheetController: ActionSheetController
+    private actionSheetController: ActionSheetController,
+    private wwtbmSvc: WwtbmService,
+    private hangedSvc: HangedService
   ) {}
 
   ngOnInit() {
@@ -43,152 +47,13 @@ export class ModalActivityPage implements OnInit {
     });
   }
 
-  async presentActionSheet(challenge) {
-    var state: string;
-    var stateIcon: string;
-    if (challenge.estado == "1") {
-      state = "Deshabilitar";
-      stateIcon = "eye-off-outline";
-    } else {
-      state = "Habilitar";
-      stateIcon = "eye-outline";
-    }
-    const actionSheet = await this.actionSheetController.create({
-      header: "Albums",
-      cssClass: "my-custom-class",
-      buttons: [
-        {
-          text: "Ver preguntas",
-          icon: "list-outline",
-          handler: () => {
-            this.openChanllengeQuestionsModal(challenge);
-          },
-        },
-        {
-          text: "Modificar",
-          icon: "settings-outline",
-          handler: () => {
-            this.createOrEditChallenge(challenge);
-          },
-        },
-        {
-          text: "Asignar reto",
-          icon: "paper-plane-outline",
-          handler: () => {
-            this.openSubjectStudentsModal(challenge);
-          },
-        },
-        {
-          text: state,
-          icon: stateIcon,
-          handler: () => {
-            this.changeChallengeState(challenge);
-          },
-        },
-        {
-          text: "Cancel",
-          icon: "close",
-          role: "cancel",
-          handler: () => {
-            console.log("Cancel clicked");
-          },
-        },
-      ],
-    });
-    await actionSheet.present();
-  }
-
-  async createOrEditChallenge(challenge) {
-    console.log(challenge);
-    let date;
-    let handlerSubmit;
-    if (challenge) {
-      date = challenge.fecha_creacion.split(" ")[0];
-      handlerSubmit = "edit";
-    } else {
-      date = new Date().toJSON().split("T")[0];
-    }
-    const alert = await this.alertController.create({
-      header: "Crear reto",
-      inputs: [
-        {
-          name: "topic",
-          type: "text",
-          placeholder: "Tema",
-          value: challenge ? challenge.tema : "",
-        },
-        {
-          name: "description",
-          type: "text",
-          placeholder: "Descripción",
-          value: challenge ? challenge.descripcion : "",
-        },
-        {
-          name: "maxAttempts",
-          type: "number",
-          placeholder: "# máximo de intentos",
-          value: challenge ? challenge.numeroIntentos : "",
-        },
-        {
-          name: "maxQuestions",
-          type: "number",
-          placeholder: "# máximo de de preguntas",
-          value: challenge ? challenge.numeroPreguntas : "",
-        },
-        {
-          name: "time",
-          type: "number",
-          placeholder: "Tiempo límite minutos",
-          value: challenge ? challenge.tiempoSegundos : "",
-        },
-        {
-          name: "limitDate",
-          type: "date",
-          min: date,
-          value: date,
-        },
-      ],
-      buttons: [
-        {
-          text: "Cancelar",
-          role: "cancel",
-        },
-        {
-          text: "Guardar",
-          handler: (alertData) => {
-            handlerSubmit == "edit"
-              ? this.editSubjectChallenge(alertData, challenge.id)
-              : this.createSubjectChallenge(alertData);
-          },
-        },
-      ],
-    });
-    await alert.present();
-  }
-
-  createSubjectChallenge(alertData) {
-    var challenge = {
-      user: this.user.idRegistro,
-      activity: this.activity,
-      description: alertData.description,
-      topic: alertData.topic,
-      maxAttempts: alertData.maxAttempts,
-      maxQuestions: alertData.maxQuestions,
-      time: alertData.time,
-      subject: this.subject.id,
-      limitDate: alertData.limitDate
-    };
-    this.subjectSvc
-      .createSubjectChallenge(challenge)
-      .then(() => {
-        this.getSubjectChallenges();
-      })
-      .catch((err) => console.log(err));
-  }
-
   getSubjectChallenges() {
     this.subjectSvc
-      .getSubjectChallenges(this.user.idRegistro, this.subject.id)
+      .getSubjectChallenges(
+        this.user.idRegistro,
+        this.activity,
+        this.subject.id
+      )
       .then((res: any) => {
         console.log(res);
         var enabledChallenges = [];
@@ -250,7 +115,156 @@ export class ModalActivityPage implements OnInit {
     return await modal.present();
   }
 
-  editSubjectChallenge(alertData, challengeId) {
+  async showChallengeOptions(challenge) {
+    var state: string;
+    var stateIcon: string;
+    if (challenge.estado == "1") {
+      state = "Deshabilitar";
+      stateIcon = "eye-off-outline";
+    } else {
+      state = "Habilitar";
+      stateIcon = "eye-outline";
+    }
+    const actionSheet = await this.actionSheetController.create({
+      header: "Albums",
+      buttons: [
+        {
+          text: "Ver preguntas",
+          icon: "list-outline",
+          handler: () => {
+            this.openChanllengeQuestionsModal(challenge);
+          },
+        },
+        {
+          text: "Modificar",
+          icon: "settings-outline",
+          handler: () => {
+            this.createOrEditChallengeHandler(challenge);
+          },
+        },
+        {
+          text: "Asignar reto",
+          icon: "paper-plane-outline",
+          handler: () => {
+            this.openSubjectStudentsModal(challenge);
+          },
+        },
+        {
+          text: state,
+          icon: stateIcon,
+          handler: () => {
+            this.changeChallengeState(challenge);
+          },
+        },
+        {
+          text: "Cancel",
+          icon: "close",
+          role: "cancel",
+          handler: () => {
+            console.log("Cancel clicked");
+          },
+        },
+      ],
+    });
+    await actionSheet.present();
+  }
+
+  createOrEditChallengeHandler(challenge) {
+    if (this.activity === "1") {
+
+    } else if (this.activity === "2") {
+      this.createOrEditWwtbmChallenge(challenge);
+    }
+  }
+
+  async createOrEditWwtbmChallenge(challenge) {
+    let date;
+    let handlerSubmit;
+    if (challenge) {
+      date = challenge.fecha_creacion.split(" ")[0];
+      handlerSubmit = "edit";
+    } else {
+      date = new Date().toJSON().split("T")[0];
+    }
+    const alert = await this.alertController.create({
+      header: "Crear reto",
+      inputs: [
+        {
+          name: "topic",
+          type: "text",
+          placeholder: "Tema",
+          value: challenge ? challenge.tema : "",
+        },
+        {
+          name: "description",
+          type: "text",
+          placeholder: "Descripción",
+          value: challenge ? challenge.descripcion : "",
+        },
+        {
+          name: "maxAttempts",
+          type: "number",
+          placeholder: "# máximo de intentos",
+          value: challenge ? challenge.numeroIntentos : "",
+        },
+        {
+          name: "maxQuestions",
+          type: "number",
+          placeholder: "# máximo de de preguntas",
+          value: challenge ? challenge.numeroPreguntas : "",
+        },
+        {
+          name: "time",
+          type: "number",
+          placeholder: "Tiempo límite minutos",
+          value: challenge ? challenge.tiempoSegundos : "",
+        },
+        {
+          name: "limitDate",
+          type: "date",
+          min: date,
+          value: date,
+        },
+      ],
+      buttons: [
+        {
+          text: "Cancelar",
+          role: "cancel",
+        },
+        {
+          text: "Guardar",
+          handler: (alertData) => {
+            handlerSubmit == "edit"
+              ? this.editWwtbmChallenge(alertData, challenge.id)
+              : this.createWwtbmChallenge(alertData);
+          },
+        },
+      ],
+    });
+    await alert.present();
+  }
+
+  createWwtbmChallenge(alertData) {
+    var challenge = {
+      user: this.user.idRegistro,
+      activity: this.activity,
+      description: alertData.description,
+      topic: alertData.topic,
+      maxAttempts: alertData.maxAttempts,
+      maxQuestions: alertData.maxQuestions,
+      time: alertData.time,
+      subject: this.subject.id,
+      limitDate: alertData.limitDate,
+    };
+    this.wwtbmSvc
+      .createChallenge(challenge)
+      .then(() => {
+        this.getSubjectChallenges();
+      })
+      .catch((err) => console.log(err));
+  }
+
+  editWwtbmChallenge(alertData, challengeId) {
     var challenge = {
       id: challengeId,
       description: alertData.description,
@@ -259,10 +273,10 @@ export class ModalActivityPage implements OnInit {
       maxQuestions: alertData.maxQuestions,
       time: alertData.time,
       subject: this.subject.id,
-      limitDate: alertData.limitDate
+      limitDate: alertData.limitDate,
     };
-    this.subjectSvc
-      .editSubjectChallenge(challenge)
+    this.wwtbmSvc
+      .editChallenge(challenge)
       .then(() => {
         this.getSubjectChallenges();
       })

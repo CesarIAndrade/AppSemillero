@@ -11,7 +11,7 @@
 
 <ion-content *ngIf="activity == 2" ñ>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="createOrEditChallenge()">
+    <ion-fab-button (click)="createOrEditChallengeHandler()">
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
@@ -26,7 +26,7 @@
         class="challenge"
         *ngFor="let _challenge of challenge.challenges"
       >
-        <ion-item (click)="presentActionSheet(_challenge)">
+        <ion-item (click)="showChallengeOptions(_challenge)">
           <ion-label>
             <h2>{{ _challenge.tema }}</h2>
             <p>{{ _challenge.tiempoSegundos }} minutos</p>

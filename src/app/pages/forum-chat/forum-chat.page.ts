@@ -32,11 +32,18 @@ export class ForumChatPage implements OnInit {
   }
 
   getForumComments() {
+    this.comments = [];
     this.forumsSvc
       .getForumComments(this.forumId)
       .then((res: any) => {
-        console.log(res);
-        this.comments = res;
+        res.map((comment: any) => {
+          if(this.user.nombres === comment.nombres) {
+            comment.class = "own_comment"
+          } else {
+            comment.class = "comment"
+          }
+          this.comments.push(comment);
+        });
       })
       .catch((err) => console.log(err));
   }
